@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/charactersFragment"
         android:name="com.codecool.morick.ui.fragments.CharactersFragment"
-        android:label="fragment_characters"
+        android:label="Characters"
         tools:layout="@layout/fragment_characters" >
         <action
             android:id="@+id/action_charactersFragment_to_detailsActivity"
@@ -17,12 +17,12 @@
     <activity
         android:id="@+id/detailsActivity"
         android:name="com.codecool.morick.ui.DetailsActivity"
-        android:label="activity_details"
+        android:label="Details"
         tools:layout="@layout/activity_details" />
     <fragment
         android:id="@+id/favoriteCharactersFragment"
         android:name="com.codecool.morick.ui.fragments.FavoriteCharactersFragment"
-        android:label="fragment_favorite_characters"
+        android:label="Favorites"
         tools:layout="@layout/fragment_favorite_characters" >
         <action
             android:id="@+id/action_favoriteCharactersFragment_to_detailsActivity"
