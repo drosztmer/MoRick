@@ -29,7 +29,6 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
 
         val search = menu.findItem(R.id.menu_search)
         val searchView = search.actionView as? SearchView
-        searchView?.isSubmitButtonEnabled = true
         searchView?.setOnQueryTextListener(this)
     }
 
