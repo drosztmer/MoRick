@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/character_in_episode_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin_small"
@@ -8,6 +9,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/character_in_episode_card_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:cardCornerRadius="@dimen/card_corner_radius"
@@ -24,7 +26,7 @@
             android:background="@color/white">
 
             <ImageView
-                android:id="@+id/item_image_view"
+                android:id="@+id/character_in_episode_image_view"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintWidth_percent=".2"
@@ -35,6 +37,7 @@
                 tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
+                android:id="@+id/character_name_in_episode_text_view"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_big"
@@ -50,7 +53,7 @@
                 android:textSize="@dimen/item_name_size"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/item_image_view"
+                app:layout_constraintStart_toEndOf="@id/character_in_episode_image_view"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Rick Sanchez" />
 

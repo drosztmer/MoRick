@@ -2,8 +2,8 @@
 <resources>
     <color name="skin">#fcbd88</color>
     <color name="yellow_medium">#ffe06e</color>
-    <color name="yellow_dark">#fcba03</color>
-    <color name="blue_light">#73a8ff</color>
+    <color name="yellow_dark">#ffa600</color>
+    <color name="blue_light">#d6ecff</color>
     <color name="blue_dark">#3683ff</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
