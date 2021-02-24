@@ -2,7 +2,7 @@ package com.codecool.models
 
 data class RickAndMortyCharacter(
     val created: String,
-    val episode: List<Any>,
+    val episode: List<String>,
     val gender: String,
     val id: Int,
     val image: String,
