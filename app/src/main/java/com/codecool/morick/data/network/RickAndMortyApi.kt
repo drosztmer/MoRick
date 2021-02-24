@@ -1,7 +1,7 @@
-package com.codecool.data.network
+package com.codecool.morick.data.network
 
-import com.codecool.models.RickAndMortyEpisode
-import com.codecool.models.RickAndMortyResponse
+import com.codecool.morick.models.RickAndMortyEpisode
+import com.codecool.morick.models.RickAndMortyResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path

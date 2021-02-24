@@ -1,6 +1,6 @@
-package com.codecool.di
+package com.codecool.morick.di
 
-import com.codecool.data.network.RickAndMortyApi
+import com.codecool.morick.data.network.RickAndMortyApi
 import com.codecool.morick.util.Constants.Companion.BASE_URL
 import dagger.Module
 import dagger.Provides

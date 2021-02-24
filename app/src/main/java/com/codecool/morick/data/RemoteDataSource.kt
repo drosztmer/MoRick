@@ -1,8 +1,8 @@
-package com.codecool.data
+package com.codecool.morick.data
 
-import com.codecool.data.network.RickAndMortyApi
-import com.codecool.models.RickAndMortyEpisode
-import com.codecool.models.RickAndMortyResponse
+import com.codecool.morick.data.network.RickAndMortyApi
+import com.codecool.morick.models.RickAndMortyEpisode
+import com.codecool.morick.models.RickAndMortyResponse
 import retrofit2.Response
 import javax.inject.Inject
 

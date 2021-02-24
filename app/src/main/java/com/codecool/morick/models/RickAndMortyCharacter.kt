@@ -1,4 +1,4 @@
-package com.codecool.models
+package com.codecool.morick.models
 
 data class RickAndMortyCharacter(
     val created: String,

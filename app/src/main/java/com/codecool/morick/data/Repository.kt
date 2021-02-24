@@ -1,4 +1,4 @@
-package com.codecool.data
+package com.codecool.morick.data
 
 import dagger.hilt.android.scopes.ViewModelScoped
 import javax.inject.Inject
