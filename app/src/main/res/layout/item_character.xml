@@ -57,6 +57,7 @@
                     android:textColor="@color/darkGray"
                     android:textStyle="bold"
                     android:textSize="@dimen/item_name_size"
+                    android:text="@{character.name}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/character_image_view"
