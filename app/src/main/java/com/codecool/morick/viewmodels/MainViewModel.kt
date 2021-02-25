@@ -28,6 +28,7 @@ class MainViewModel @Inject constructor(
 ): AndroidViewModel(application) {
 
     val rickAndMortyResponse: MutableLiveData<NetworkResult<RickAndMortyResponse>> = MutableLiveData()
+    val searchedRickAndMortyResponse: MutableLiveData<NetworkResult<RickAndMortyResponse>> = MutableLiveData()
     val readBackOnline = dataStoreRepository.readBackOnline.asLiveData()
 
     var networkStatus = false
@@ -37,20 +38,12 @@ class MainViewModel @Inject constructor(
         getCharactersSafeCall()
     }
 
-    fun saveBackOnline(backOnline: Boolean) = viewModelScope.launch(Dispatchers.IO) {
-        dataStoreRepository.saveBackOnline(backOnline)
+    fun searchCharacters(name: String) = viewModelScope.launch {
+        searchCharactersSafeCall(name)
     }
 
-    fun showNetworkStatus() {
-        if (!networkStatus) {
-            Toast.makeText(getApplication(), "No Internet Connection", Toast.LENGTH_SHORT).show()
-            saveBackOnline(true)
-        } else if (networkStatus) {
-            if (backOnline) {
-                Toast.makeText(getApplication(), "Internet Connection Was Restored", Toast.LENGTH_SHORT).show()
-                saveBackOnline(false)
-            }
-        }
+    fun saveBackOnline(backOnline: Boolean) = viewModelScope.launch(Dispatchers.IO) {
+        dataStoreRepository.saveBackOnline(backOnline)
     }
 
     private suspend fun getCharactersSafeCall() {
@@ -68,6 +61,20 @@ class MainViewModel @Inject constructor(
 
     }
 
+    private suspend fun searchCharactersSafeCall(name: String) {
+        searchedRickAndMortyResponse.value = NetworkResult.Loading()
+        if (hasInternetConnection()) {
+            try {
+                val response = repository.remote.searchCharacters(name)
+                searchedRickAndMortyResponse.value = handleRickAndMortyResponse(response)
+            } catch (e: Exception) {
+                searchedRickAndMortyResponse.value = NetworkResult.Error("Characters Not Found")
+            }
+        } else {
+            searchedRickAndMortyResponse.value = NetworkResult.Error("No Internet Connection")
+        }
+    }
+
     fun handleRickAndMortyResponse(response: Response<RickAndMortyResponse>): NetworkResult<RickAndMortyResponse> {
         when {
             response.message().toString().contains("There is nothing here.") -> {
@@ -82,6 +89,18 @@ class MainViewModel @Inject constructor(
             }
             else -> {
                 return NetworkResult.Error(response.message())
+            }
+        }
+    }
+
+    fun showNetworkStatus() {
+        if (!networkStatus) {
+            Toast.makeText(getApplication(), "No Internet Connection", Toast.LENGTH_SHORT).show()
+            saveBackOnline(true)
+        } else if (networkStatus) {
+            if (backOnline) {
+                Toast.makeText(getApplication(), "Internet Connection Was Restored", Toast.LENGTH_SHORT).show()
+                saveBackOnline(false)
             }
         }
     }
