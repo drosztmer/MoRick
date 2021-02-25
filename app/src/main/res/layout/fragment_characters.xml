@@ -22,6 +22,7 @@
             android:layout_marginStart="@dimen/margin_medium"
             android:layout_marginEnd="@dimen/margin_medium"
             android:orientation="vertical"
+            handleNetworkError="@{mainViewModel.rickAndMortyResponse}"
             app:shimmer_recycler_item_count="5"
             app:shimmer_recycler_layout="@layout/item_placeholder_character"
             app:layout_constraintBottom_toBottomOf="parent"
