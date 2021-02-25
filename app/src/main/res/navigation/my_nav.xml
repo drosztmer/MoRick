@@ -18,7 +18,11 @@
         android:id="@+id/detailsActivity"
         android:name="com.codecool.morick.ui.DetailsActivity"
         android:label="Details"
-        tools:layout="@layout/activity_details" />
+        tools:layout="@layout/activity_details" >
+        <argument
+            android:name="character"
+            app:argType="com.codecool.morick.models.RickAndMortyCharacter" />
+    </activity>
     <fragment
         android:id="@+id/favoriteCharactersFragment"
         android:name="com.codecool.morick.ui.fragments.FavoriteCharactersFragment"
