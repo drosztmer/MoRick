@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="skin">#fcbd88</color>
-    <color name="yellow_medium">#ffd84a</color>
-    <color name="yellow_dark">#ffa600</color>
+    <color name="yellow_medium">#ffba0d</color>
+    <color name="yellow_dark">#e67e00</color>
     <color name="blue_light">#d6ecff</color>
     <color name="blue_dark">#3683ff</color>
     <color name="black">#FF000000</color>
