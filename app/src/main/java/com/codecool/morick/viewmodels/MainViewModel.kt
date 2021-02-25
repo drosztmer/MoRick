@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
@@ -75,12 +76,9 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun handleRickAndMortyResponse(response: Response<RickAndMortyResponse>): NetworkResult<RickAndMortyResponse> {
+    private fun handleRickAndMortyResponse(response: Response<RickAndMortyResponse>): NetworkResult<RickAndMortyResponse> {
         when {
-            response.message().toString().contains("There is nothing here.") -> {
-                return NetworkResult.Error("Request couldn't be completed")
-            }
-            response.message().toString().contains("Character not found") -> {
+            response.code().toString() == "404" -> {
                 return NetworkResult.Error("Characters Not Found")
             }
             response.isSuccessful -> {

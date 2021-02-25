@@ -22,7 +22,6 @@ class CharactersBinding {
             apiResponse: NetworkResult<RickAndMortyResponse>?,
             itemCount: Int
         ) {
-            Log.d("ITEMCOUNTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT: ", itemCount.toString())
             when (view) {
                 is ImageView -> {
                     view.isVisible = apiResponse is NetworkResult.Error && itemCount == 0
