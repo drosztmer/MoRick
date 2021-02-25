@@ -1,5 +1,9 @@
 package com.codecool.morick.models
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class RickAndMortyCharacter(
     val created: String,
     val episode: List<String>,
@@ -13,4 +17,4 @@ data class RickAndMortyCharacter(
     val status: String,
     val type: String,
     val url: String
-)
+): Parcelable
