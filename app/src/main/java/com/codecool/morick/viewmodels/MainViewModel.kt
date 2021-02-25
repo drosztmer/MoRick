@@ -4,13 +4,17 @@ import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.codecool.morick.data.DataStoreRepository
 import com.codecool.morick.data.Repository
 import com.codecool.morick.models.RickAndMortyResponse
 import com.codecool.morick.util.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import java.lang.Exception
@@ -19,13 +23,34 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val repository: Repository,
+    private val dataStoreRepository: DataStoreRepository,
     application: Application
 ): AndroidViewModel(application) {
 
     val rickAndMortyResponse: MutableLiveData<NetworkResult<RickAndMortyResponse>> = MutableLiveData()
+    val readBackOnline = dataStoreRepository.readBackOnline.asLiveData()
+
+    var networkStatus = false
+    var backOnline = false
 
     fun getCharacters() = viewModelScope.launch {
         getCharactersSafeCall()
+    }
+
+    fun saveBackOnline(backOnline: Boolean) = viewModelScope.launch(Dispatchers.IO) {
+        dataStoreRepository.saveBackOnline(backOnline)
+    }
+
+    fun showNetworkStatus() {
+        if (!networkStatus) {
+            Toast.makeText(getApplication(), "No Internet Connection", Toast.LENGTH_SHORT).show()
+            saveBackOnline(true)
+        } else if (networkStatus) {
+            if (backOnline) {
+                Toast.makeText(getApplication(), "Internet Connection Was Restored", Toast.LENGTH_SHORT).show()
+                saveBackOnline(false)
+            }
+        }
     }
 
     private suspend fun getCharactersSafeCall() {
