@@ -8,7 +8,7 @@ import retrofit2.http.Path
 
 interface RickAndMortyApi {
 
-    @GET("/character")
+    @GET("/api/character")
     suspend fun getAllCharacters(): Response<RickAndMortyResponse>
 
     @GET("/episode/{episodeId}")
