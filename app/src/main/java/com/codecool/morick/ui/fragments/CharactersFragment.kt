@@ -14,6 +14,7 @@ import com.codecool.morick.adapters.CharactersAdapter
 import com.codecool.morick.databinding.FragmentCharactersBinding
 import com.codecool.morick.util.NetworkListener
 import com.codecool.morick.util.NetworkResult
+import com.codecool.morick.util.Util
 import com.codecool.morick.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -88,6 +89,7 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
         if (query != null) {
             searchApiData(query)
         }
+        Util.hideKeyboard(requireActivity())
         return true
     }
 
