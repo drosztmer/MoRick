@@ -39,12 +39,14 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCharactersBinding.inflate(inflater, container, false)
+        setupRecyclerView()
+
         binding.lifecycleOwner = this
         binding.mainViewModel = mainViewModel
+        binding.adapter = mAdapter
 
         setHasOptionsMenu(true)
 
-        setupRecyclerView()
 
         mainViewModel.readBackOnline.observe(viewLifecycleOwner, {
             mainViewModel.backOnline = it
