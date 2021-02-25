@@ -3,8 +3,8 @@ package com.codecool.morick.ui.fragments
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.SearchView
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -14,6 +14,7 @@ import com.codecool.morick.adapters.CharactersAdapter
 import com.codecool.morick.databinding.FragmentCharactersBinding
 import com.codecool.morick.util.NetworkListener
 import com.codecool.morick.util.NetworkResult
+import com.codecool.morick.util.Util
 import com.codecool.morick.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -39,12 +40,13 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCharactersBinding.inflate(inflater, container, false)
+        setupRecyclerView()
+
         binding.lifecycleOwner = this
         binding.mainViewModel = mainViewModel
+        binding.adapter = mAdapter
 
         setHasOptionsMenu(true)
-
-        setupRecyclerView()
 
         mainViewModel.readBackOnline.observe(viewLifecycleOwner, {
             mainViewModel.backOnline = it
@@ -61,6 +63,38 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
         }
 
         return binding.root
+    }
+
+    private fun setupRecyclerView() {
+        binding.charactersRecyclerView.apply {
+            adapter = mAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+        showShimmerEffect()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.characters_menu, menu)
+
+        val searchItem = menu.findItem(R.id.menu_search)
+        val searchView = searchItem.actionView as SearchView
+
+        searchView.isSubmitButtonEnabled = true
+
+        searchView.setOnQueryTextListener(this)
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        if (query != null) {
+            searchApiData(query)
+        }
+        Util.hideKeyboard(requireActivity())
+        return true
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        return true
     }
 
     private fun requestApiData() {
@@ -83,32 +117,27 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
         })
     }
 
-    private fun setupRecyclerView() {
-        binding.charactersRecyclerView.apply {
-            adapter = mAdapter
-            layoutManager = LinearLayoutManager(requireContext())
-        }
+    private fun searchApiData(name: String) {
         showShimmerEffect()
+        mainViewModel.searchCharacters(name)
+        mainViewModel.searchedRickAndMortyResponse.observe(viewLifecycleOwner, { response ->
+            when (response) {
+                is NetworkResult.Success -> {
+                    hideShimmerEffect()
+                    val characterResponse = response.data
+                    characterResponse?.let { mAdapter.setData(it) }
+                }
+                is NetworkResult.Error -> {
+                    hideShimmerEffect()
+                    Toast.makeText(requireContext(), response.message.toString(), Toast.LENGTH_SHORT).show()
+                }
+                is NetworkResult.Loading -> {
+                    showShimmerEffect()
+                }
+            }
+        })
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.characters_menu, menu)
-
-        val search = menu.findItem(R.id.menu_search)
-        val searchView = search.actionView as? SearchView
-        searchView?.setOnQueryTextListener(this)
-    }
-
-    override fun onQueryTextSubmit(query: String?): Boolean {
-        if (query != null) {
-
-        }
-        return true
-    }
-
-    override fun onQueryTextChange(newText: String?): Boolean {
-        return true
-    }
     private fun showShimmerEffect() {
         binding.charactersRecyclerView.showShimmer()
     }
