@@ -14,6 +14,10 @@ class RemoteDataSource @Inject constructor(
         return rickAndMortyApi.getAllCharacters()
     }
 
+    suspend fun searchCharacters(name: String): Response<RickAndMortyResponse> {
+        return rickAndMortyApi.searchCharacters(name)
+    }
+
     suspend fun getEpisodeById(id: String): Response<RickAndMortyEpisode> {
         return rickAndMortyApi.getEpisodeById(id)
     }
