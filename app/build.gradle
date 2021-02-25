@@ -95,4 +95,7 @@ dependencies {
 
     // Image Loading library Coil
     implementation "io.coil-kt:coil:1.1.1"
+
+    // DataStore
+    implementation "androidx.datastore:datastore-preferences:1.0.0-alpha06"
 }
