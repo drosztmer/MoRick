@@ -11,25 +11,21 @@
         android:label="Characters"
         tools:layout="@layout/fragment_characters" >
         <action
-            android:id="@+id/action_charactersFragment_to_detailsActivity"
-            app:destination="@id/detailsActivity" />
+            android:id="@+id/action_charactersFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
     </fragment>
-    <activity
-        android:id="@+id/detailsActivity"
-        android:name="com.codecool.morick.ui.DetailsActivity"
-        android:label="Details"
-        tools:layout="@layout/activity_details" >
-        <argument
-            android:name="character"
-            app:argType="com.codecool.morick.models.RickAndMortyCharacter" />
-    </activity>
     <fragment
         android:id="@+id/favoriteCharactersFragment"
         android:name="com.codecool.morick.ui.fragments.FavoriteCharactersFragment"
         android:label="Favorites"
         tools:layout="@layout/fragment_favorite_characters" >
         <action
-            android:id="@+id/action_favoriteCharactersFragment_to_detailsActivity"
-            app:destination="@id/detailsActivity" />
+            android:id="@+id/action_favoriteCharactersFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.codecool.morick.ui.fragments.DetailsFragment"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_details" />
 </navigation>
