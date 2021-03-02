@@ -27,5 +27,9 @@
         android:id="@+id/detailsFragment"
         android:name="com.codecool.morick.ui.fragments.DetailsFragment"
         android:label="fragment_details"
-        tools:layout="@layout/fragment_details" />
+        tools:layout="@layout/fragment_details" >
+        <argument
+            android:name="character"
+            app:argType="com.codecool.morick.models.RickAndMortyCharacter" />
+    </fragment>
 </navigation>
