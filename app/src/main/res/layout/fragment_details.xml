@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="@dimen/margin_medium"
+    android:background="@color/blue_light"
     tools:context=".ui.fragments.DetailsFragment">
 
     <ScrollView
@@ -53,12 +55,15 @@
 
             <TextView
                 android:id="@+id/status_info"
+                style="@style/RickAndMortyTextInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Unknown"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="@dimen/margin_medium"
-                style="@style/RickAndMortyTextInfo"
+                android:text="Unknown"
                 app:layout_constraintEnd_toEndOf="@+id/character_name"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/status_title"
                 app:layout_constraintTop_toBottomOf="@+id/character_name" />
 
             <TextView
@@ -101,7 +106,115 @@
                 app:layout_constraintEnd_toEndOf="@+id/species_info"
                 app:layout_constraintTop_toBottomOf="@+id/species_info" />
 
+            <TextView
+                android:id="@+id/gender_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gender"
+                android:layout_marginTop="@dimen/margin_medium"
+                style="@style/RickAndMortyTextBig"
+                app:layout_constraintStart_toStartOf="@+id/type_title"
+                app:layout_constraintTop_toBottomOf="@+id/type_title" />
 
+            <TextView
+                android:id="@+id/gender_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Unknown"
+                android:layout_marginTop="@dimen/margin_medium"
+                style="@style/RickAndMortyTextInfo"
+                app:layout_constraintEnd_toEndOf="@+id/type_info"
+                app:layout_constraintTop_toBottomOf="@+id/type_info" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/origin_cardview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_medium"
+                app:cardCornerRadius="@dimen/card_corner_radius"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/gender_title"
+                app:strokeColor="@color/blue_medium"
+                app:strokeWidth="@dimen/stroke_width">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white">
+
+                    <TextView
+                        android:id="@+id/origin_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_medium"
+                        android:text="@string/origin"
+                        style="@style/RickAndMortyTextBig"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/origin_info"
+                        style="@style/RickAndMortyTextInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_medium"
+                        android:text="Unknown"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toEndOf="@id/origin_title"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/location_cardview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_medium"
+                app:cardCornerRadius="@dimen/card_corner_radius"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/origin_cardview"
+                app:strokeColor="@color/blue_medium"
+                app:strokeWidth="@dimen/stroke_width">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white">
+
+                    <TextView
+                        android:id="@+id/location_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_medium"
+                        android:text="@string/location"
+                        style="@style/RickAndMortyTextBig"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/location_info"
+                        style="@style/RickAndMortyTextInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_medium"
+                        android:text="Unknown"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toEndOf="@id/location_title"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
