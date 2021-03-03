@@ -52,6 +52,16 @@
                 app:layout_constraintTop_toBottomOf="@+id/character_name" />
 
             <TextView
+                android:id="@+id/status_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Unknown"
+                android:layout_marginTop="@dimen/margin_medium"
+                style="@style/RickAndMortyTextInfo"
+                app:layout_constraintEnd_toEndOf="@+id/character_name"
+                app:layout_constraintTop_toBottomOf="@+id/character_name" />
+
+            <TextView
                 android:id="@+id/species_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -62,6 +72,16 @@
                 app:layout_constraintTop_toBottomOf="@+id/status_title" />
 
             <TextView
+                android:id="@+id/species_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Unknown"
+                android:layout_marginTop="@dimen/margin_medium"
+                style="@style/RickAndMortyTextInfo"
+                app:layout_constraintEnd_toEndOf="@+id/status_info"
+                app:layout_constraintTop_toBottomOf="@+id/status_info" />
+
+            <TextView
                 android:id="@+id/type_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -70,6 +90,18 @@
                 style="@style/RickAndMortyTextBig"
                 app:layout_constraintStart_toStartOf="@+id/species_title"
                 app:layout_constraintTop_toBottomOf="@+id/species_title" />
+
+            <TextView
+                android:id="@+id/type_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Unknown"
+                android:layout_marginTop="@dimen/margin_medium"
+                style="@style/RickAndMortyTextInfo"
+                app:layout_constraintEnd_toEndOf="@+id/species_info"
+                app:layout_constraintTop_toBottomOf="@+id/species_info" />
+
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
