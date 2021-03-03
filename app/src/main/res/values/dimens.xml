@@ -9,4 +9,5 @@
     <dimen name="episode_title_text_size">18sp</dimen>
     <dimen name="image_size">100dp</dimen>
     <dimen name="error_text_size">18sp</dimen>
+    <dimen name="details_image_height">400dp</dimen>
 </resources>

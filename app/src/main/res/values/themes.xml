@@ -13,4 +13,11 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="RickAndMortyTextBig" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/kranky</item>
+        <item name="android:textColor">@color/darkGray</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/item_name_size</item>
+    </style>
 </resources>
