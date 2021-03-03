@@ -18,6 +18,19 @@
         <item name="android:fontFamily">@font/kranky</item>
         <item name="android:textColor">@color/darkGray</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">@dimen/item_name_size</item>
+        <item name="android:textSize">@dimen/text_size_big</item>
+    </style>
+
+    <style name="RickAndMortyTextName" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/kranky</item>
+        <item name="android:textColor">@color/darkGray</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_size_large</item>
+    </style>
+
+    <style name="RickAndMortyTextInfo" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/kranky</item>
+        <item name="android:textColor">@color/darkGray</item>
+        <item name="android:textSize">@dimen/text_size_big</item>
     </style>
 </resources>
