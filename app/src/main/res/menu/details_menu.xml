@@ -1,4 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="details_save"
+        android:icon="@drawable/ic_save"
+        android:iconTint="@color/white"
+        android:title="@string/save"
+        app:showAsAction="ifRoom"
+        tools:targetApi="o" />
+
+    <item android:id="details_share"
+        android:icon="@drawable/ic_share"
+        android:iconTint="@color/white"
+        android:title="@string/share"
+        app:showAsAction="ifRoom"
+        tools:targetApi="o" />
+
+    <item android:id="details_favorite"
+        android:icon="@drawable/ic_star"
+        android:iconTint="@color/white"
+        android:title="@string/favorite"
+        app:showAsAction="ifRoom"
+        tools:targetApi="o" />
+
 
 </menu>
