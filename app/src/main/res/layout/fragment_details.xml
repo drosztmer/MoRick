@@ -46,7 +46,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_big"
                     android:gravity="center"
-                    android:text="@{character.name}"
+                    loadText="@{character.name}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/detail_image"
@@ -70,7 +70,7 @@
                     android:layout_marginStart="@dimen/margin_medium"
                     android:layout_marginTop="@dimen/margin_medium"
                     android:gravity="end"
-                    android:text="@{character.status}"
+                    loadText="@{character.status}"
                     app:layout_constraintEnd_toEndOf="@+id/character_name"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toEndOf="@+id/status_title"
@@ -94,7 +94,7 @@
                     android:layout_marginStart="@dimen/margin_medium"
                     android:layout_marginTop="@dimen/margin_medium"
                     android:gravity="end"
-                    android:text="@{character.species}"
+                    loadText="@{character.species}"
                     app:layout_constraintEnd_toEndOf="@+id/status_info"
                     app:layout_constraintStart_toEndOf="@+id/species_title"
                     app:layout_constraintTop_toBottomOf="@+id/status_info" />
@@ -117,7 +117,7 @@
                     android:layout_marginStart="@dimen/margin_medium"
                     android:layout_marginTop="@dimen/margin_medium"
                     android:gravity="end"
-                    android:text="@{character.type}"
+                    loadText="@{character.type}"
                     app:layout_constraintEnd_toEndOf="@+id/species_info"
                     app:layout_constraintStart_toEndOf="@+id/type_title"
                     app:layout_constraintTop_toBottomOf="@+id/species_info" />
@@ -140,7 +140,7 @@
                     android:layout_marginStart="@dimen/margin_medium"
                     android:layout_marginTop="@dimen/margin_medium"
                     android:gravity="end"
-                    android:text="@{character.gender}"
+                    loadText="@{character.gender}"
                     app:layout_constraintEnd_toEndOf="@+id/type_info"
                     app:layout_constraintStart_toEndOf="@+id/gender_title"
                     app:layout_constraintTop_toBottomOf="@+id/type_info" />
@@ -164,14 +164,13 @@
 
                         <TextView
                             android:id="@+id/origin_title"
+                            style="@style/RickAndMortyTextBig"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/margin_medium"
                             android:text="@string/origin"
-                            style="@style/RickAndMortyTextBig"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
                             android:id="@+id/origin_info"
@@ -180,7 +179,7 @@
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/margin_medium"
                             android:gravity="end"
-                            android:text="@{character.origin.name}"
+                            loadText="@{character.origin.name}"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="1.0"
@@ -210,14 +209,13 @@
 
                         <TextView
                             android:id="@+id/location_title"
+                            style="@style/RickAndMortyTextBig"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/margin_medium"
                             android:text="@string/location"
-                            style="@style/RickAndMortyTextBig"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
                             android:id="@+id/location_info"
@@ -226,7 +224,7 @@
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/margin_medium"
                             android:gravity="end"
-                            android:text="@{character.location.name}"
+                            loadText="@{character.location.name}"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="1.0"
