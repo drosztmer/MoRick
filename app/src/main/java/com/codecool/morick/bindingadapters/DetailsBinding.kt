@@ -2,9 +2,12 @@ package com.codecool.morick.bindingadapters
 
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import coil.load
 import com.codecool.morick.R
+import com.codecool.morick.util.Constants.Companion.ALIVE
+import com.codecool.morick.util.Constants.Companion.DEAD
 import com.codecool.morick.util.Constants.Companion.UNKNOWN
 
 class DetailsBinding {
@@ -30,5 +33,14 @@ class DetailsBinding {
             }
         }
 
+        @BindingAdapter("applyStatusColor")
+        @JvmStatic
+        fun applyStatusColor(textView: TextView, status: String) {
+            if (status == ALIVE) {
+                textView.setTextColor(ContextCompat.getColor(textView.context, R.color.green))
+            } else if (status == DEAD) {
+                textView.setTextColor(ContextCompat.getColor(textView.context, R.color.red))
+            }
+        }
     }
 }
