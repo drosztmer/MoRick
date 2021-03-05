@@ -23,7 +23,7 @@
 
     <style name="RickAndMortyTextName" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily">@font/kranky</item>
-        <item name="android:textColor">@color/darkGray</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/text_size_large</item>
     </style>

@@ -39,6 +39,16 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:src="@tools:sample/avatars" />
 
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/gradient_overlay_height"
+                    android:background="@drawable/gradient_overlay"
+                    app:layout_constraintStart_toStartOf="@id/detail_image"
+                    app:layout_constraintEnd_toEndOf="@id/detail_image"
+                    app:layout_constraintTop_toTopOf="@id/detail_image"
+                    app:layout_constraintBottom_toBottomOf="@id/detail_image"
+                    app:layout_constraintVertical_bias="1.0" />
+
                 <TextView
                     android:id="@+id/character_name"
                     style="@style/RickAndMortyTextName"
@@ -47,34 +57,36 @@
                     android:layout_margin="@dimen/margin_big"
                     android:gravity="center"
                     loadText="@{character.name}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/detail_image"
-                    tools:text="Rick Sanchez" />
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    app:layout_constraintEnd_toEndOf="@id/detail_image"
+                    app:layout_constraintStart_toStartOf="@id/detail_image"
+                    app:layout_constraintBottom_toBottomOf="@id/detail_image"
+                    tools:text="Rick Sanchez Rick Sanchez Rick Sanchez Rick Sanchez" />
 
                 <TextView
                     android:id="@+id/status_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/status"
-                    android:layout_marginTop="@dimen/margin_medium"
+                    android:layout_margin="@dimen/margin_medium"
                     style="@style/RickAndMortyTextBig"
-                    app:layout_constraintStart_toStartOf="@+id/character_name"
-                    app:layout_constraintTop_toBottomOf="@+id/character_name" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/detail_image" />
 
                 <TextView
                     android:id="@+id/status_info"
                     style="@style/RickAndMortyTextInfo"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_medium"
+                    android:layout_marginHorizontal="@dimen/margin_medium"
                     android:layout_marginTop="@dimen/margin_medium"
                     android:gravity="end"
                     loadText="@{character.status}"
-                    app:layout_constraintEnd_toEndOf="@+id/character_name"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toEndOf="@+id/status_title"
-                    app:layout_constraintTop_toBottomOf="@+id/character_name" />
+                    app:layout_constraintTop_toBottomOf="@+id/detail_image" />
 
                 <TextView
                     android:id="@+id/species_title"
@@ -84,7 +96,7 @@
                     android:layout_marginTop="@dimen/margin_medium"
                     style="@style/RickAndMortyTextBig"
                     app:layout_constraintStart_toStartOf="@+id/status_title"
-                    app:layout_constraintTop_toBottomOf="@+id/status_title" />
+                    app:layout_constraintTop_toBottomOf="@+id/status_info" />
 
                 <TextView
                     android:id="@+id/species_info"
@@ -107,7 +119,7 @@
                     android:layout_marginTop="@dimen/margin_medium"
                     style="@style/RickAndMortyTextBig"
                     app:layout_constraintStart_toStartOf="@+id/species_title"
-                    app:layout_constraintTop_toBottomOf="@+id/species_title" />
+                    app:layout_constraintTop_toBottomOf="@+id/species_info" />
 
                 <TextView
                     android:id="@+id/type_info"
@@ -130,7 +142,7 @@
                     android:layout_marginTop="@dimen/margin_medium"
                     style="@style/RickAndMortyTextBig"
                     app:layout_constraintStart_toStartOf="@+id/type_title"
-                    app:layout_constraintTop_toBottomOf="@+id/type_title" />
+                    app:layout_constraintTop_toBottomOf="@+id/type_info" />
 
                 <TextView
                     android:id="@+id/gender_info"
@@ -153,7 +165,7 @@
                     app:cardCornerRadius="@dimen/card_corner_radius"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/gender_title"
+                    app:layout_constraintTop_toBottomOf="@id/gender_info"
                     app:strokeColor="@color/blue_medium"
                     app:strokeWidth="@dimen/stroke_width">
 
