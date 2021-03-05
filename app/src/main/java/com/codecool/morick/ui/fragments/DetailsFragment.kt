@@ -8,6 +8,7 @@ import androidx.navigation.fragment.navArgs
 import coil.load
 import com.codecool.morick.R
 import com.codecool.morick.databinding.FragmentDetailsBinding
+import com.codecool.morick.models.RickAndMortyCharacter
 
 class DetailsFragment : Fragment() {
 
@@ -27,9 +28,7 @@ class DetailsFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentDetailsBinding.inflate(inflater, container, false)
         val character = args.character
-        binding.detailImage.load(character.image) {
-            crossfade(600)
-        }
+        binding.character = character
         return binding.root
     }
 

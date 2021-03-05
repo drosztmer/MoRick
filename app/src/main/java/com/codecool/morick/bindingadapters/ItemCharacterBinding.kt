@@ -15,7 +15,7 @@ class ItemCharacterBinding {
 
     companion object {
 
-        @BindingAdapter("loadImageFromUrl")
+        @BindingAdapter("loadItemImageFromUrl")
         @JvmStatic
         fun loadImageFromUrl(imageView: ImageView, imageUrl: String) {
             imageView.load(imageUrl) {

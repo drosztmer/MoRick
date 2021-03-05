@@ -1,225 +1,235 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginBottom="@dimen/margin_medium"
-    android:background="@color/blue_light"
-    tools:context=".ui.fragments.DetailsFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ScrollView
+    <data>
+        <variable
+            name="character"
+            type="com.codecool.morick.models.RickAndMortyCharacter" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginBottom="@dimen/margin_medium"
+        android:background="@color/blue_light"
+        tools:context=".ui.fragments.DetailsFragment">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/detail_image"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/details_image_height"
-                android:scaleType="centerCrop"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:src="@tools:sample/avatars" />
-
-            <TextView
-                android:id="@+id/character_name"
-                style="@style/RickAndMortyTextName"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_big"
-                android:gravity="center"
-                android:text="Rick Sanchez"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/detail_image"
-                tools:text="Rick Sanchez" />
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/status_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/status"
-                android:layout_marginTop="@dimen/margin_medium"
-                style="@style/RickAndMortyTextBig"
-                app:layout_constraintStart_toStartOf="@+id/character_name"
-                app:layout_constraintTop_toBottomOf="@+id/character_name" />
+                <ImageView
+                    android:id="@+id/detail_image"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/details_image_height"
+                    android:scaleType="centerCrop"
+                    loadDetailsImageFromUrl="@{character.image}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@tools:sample/avatars" />
 
-            <TextView
-                android:id="@+id/status_info"
-                style="@style/RickAndMortyTextInfo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="@dimen/margin_medium"
-                android:text="Unknown"
-                app:layout_constraintEnd_toEndOf="@+id/character_name"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/status_title"
-                app:layout_constraintTop_toBottomOf="@+id/character_name" />
-
-            <TextView
-                android:id="@+id/species_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/species"
-                android:layout_marginTop="@dimen/margin_medium"
-                style="@style/RickAndMortyTextBig"
-                app:layout_constraintStart_toStartOf="@+id/status_title"
-                app:layout_constraintTop_toBottomOf="@+id/status_title" />
-
-            <TextView
-                android:id="@+id/species_info"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Unknown"
-                android:layout_marginTop="@dimen/margin_medium"
-                style="@style/RickAndMortyTextInfo"
-                app:layout_constraintEnd_toEndOf="@+id/status_info"
-                app:layout_constraintTop_toBottomOf="@+id/status_info" />
-
-            <TextView
-                android:id="@+id/type_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/type"
-                android:layout_marginTop="@dimen/margin_medium"
-                style="@style/RickAndMortyTextBig"
-                app:layout_constraintStart_toStartOf="@+id/species_title"
-                app:layout_constraintTop_toBottomOf="@+id/species_title" />
-
-            <TextView
-                android:id="@+id/type_info"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Unknown"
-                android:layout_marginTop="@dimen/margin_medium"
-                style="@style/RickAndMortyTextInfo"
-                app:layout_constraintEnd_toEndOf="@+id/species_info"
-                app:layout_constraintTop_toBottomOf="@+id/species_info" />
-
-            <TextView
-                android:id="@+id/gender_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/gender"
-                android:layout_marginTop="@dimen/margin_medium"
-                style="@style/RickAndMortyTextBig"
-                app:layout_constraintStart_toStartOf="@+id/type_title"
-                app:layout_constraintTop_toBottomOf="@+id/type_title" />
-
-            <TextView
-                android:id="@+id/gender_info"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Unknown"
-                android:layout_marginTop="@dimen/margin_medium"
-                style="@style/RickAndMortyTextInfo"
-                app:layout_constraintEnd_toEndOf="@+id/type_info"
-                app:layout_constraintTop_toBottomOf="@+id/type_info" />
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/origin_cardview"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_medium"
-                app:cardCornerRadius="@dimen/card_corner_radius"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/gender_title"
-                app:strokeColor="@color/blue_medium"
-                app:strokeWidth="@dimen/stroke_width">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <TextView
+                    android:id="@+id/character_name"
+                    style="@style/RickAndMortyTextName"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/white">
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_big"
+                    android:gravity="center"
+                    android:text="Rick Sanchez"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/detail_image"
+                    tools:text="Rick Sanchez" />
 
-                    <TextView
-                        android:id="@+id/origin_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/margin_medium"
-                        android:text="@string/origin"
-                        style="@style/RickAndMortyTextBig"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
+                <TextView
+                    android:id="@+id/status_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/status"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    style="@style/RickAndMortyTextBig"
+                    app:layout_constraintStart_toStartOf="@+id/character_name"
+                    app:layout_constraintTop_toBottomOf="@+id/character_name" />
 
-                    <TextView
-                        android:id="@+id/origin_info"
-                        style="@style/RickAndMortyTextInfo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/margin_medium"
-                        android:text="Unknown"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toEndOf="@id/origin_title"
-                        app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/status_info"
+                    style="@style/RickAndMortyTextInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:text="Unknown"
+                    app:layout_constraintEnd_toEndOf="@+id/character_name"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/status_title"
+                    app:layout_constraintTop_toBottomOf="@+id/character_name" />
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/species_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/species"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    style="@style/RickAndMortyTextBig"
+                    app:layout_constraintStart_toStartOf="@+id/status_title"
+                    app:layout_constraintTop_toBottomOf="@+id/status_title" />
 
-            </com.google.android.material.card.MaterialCardView>
+                <TextView
+                    android:id="@+id/species_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Unknown"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    style="@style/RickAndMortyTextInfo"
+                    app:layout_constraintEnd_toEndOf="@+id/status_info"
+                    app:layout_constraintTop_toBottomOf="@+id/status_info" />
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/location_cardview"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_medium"
-                app:cardCornerRadius="@dimen/card_corner_radius"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/origin_cardview"
-                app:strokeColor="@color/blue_medium"
-                app:strokeWidth="@dimen/stroke_width">
+                <TextView
+                    android:id="@+id/type_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/type"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    style="@style/RickAndMortyTextBig"
+                    app:layout_constraintStart_toStartOf="@+id/species_title"
+                    app:layout_constraintTop_toBottomOf="@+id/species_title" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/white">
+                <TextView
+                    android:id="@+id/type_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Unknown"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    style="@style/RickAndMortyTextInfo"
+                    app:layout_constraintEnd_toEndOf="@+id/species_info"
+                    app:layout_constraintTop_toBottomOf="@+id/species_info" />
 
-                    <TextView
-                        android:id="@+id/location_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/margin_medium"
-                        android:text="@string/location"
-                        style="@style/RickAndMortyTextBig"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
+                <TextView
+                    android:id="@+id/gender_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/gender"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    style="@style/RickAndMortyTextBig"
+                    app:layout_constraintStart_toStartOf="@+id/type_title"
+                    app:layout_constraintTop_toBottomOf="@+id/type_title" />
 
-                    <TextView
-                        android:id="@+id/location_info"
-                        style="@style/RickAndMortyTextInfo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/margin_medium"
-                        android:text="Unknown"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toEndOf="@id/location_title"
-                        app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/gender_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Unknown"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    style="@style/RickAndMortyTextInfo"
+                    app:layout_constraintEnd_toEndOf="@+id/type_info"
+                    app:layout_constraintTop_toBottomOf="@+id/type_info" />
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/origin_cardview"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_medium"
+                    app:cardCornerRadius="@dimen/card_corner_radius"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/gender_title"
+                    app:strokeColor="@color/blue_medium"
+                    app:strokeWidth="@dimen/stroke_width">
 
-            </com.google.android.material.card.MaterialCardView>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white">
+
+                        <TextView
+                            android:id="@+id/origin_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin_medium"
+                            android:text="@string/origin"
+                            style="@style/RickAndMortyTextBig"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent" />
+
+                        <TextView
+                            android:id="@+id/origin_info"
+                            style="@style/RickAndMortyTextInfo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin_medium"
+                            android:text="Unknown"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="1.0"
+                            app:layout_constraintStart_toEndOf="@id/origin_title"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/location_cardview"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_medium"
+                    app:cardCornerRadius="@dimen/card_corner_radius"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/origin_cardview"
+                    app:strokeColor="@color/blue_medium"
+                    app:strokeWidth="@dimen/stroke_width">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white">
+
+                        <TextView
+                            android:id="@+id/location_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin_medium"
+                            android:text="@string/location"
+                            style="@style/RickAndMortyTextBig"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent" />
+
+                        <TextView
+                            android:id="@+id/location_info"
+                            style="@style/RickAndMortyTextInfo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin_medium"
+                            android:text="Unknown"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="1.0"
+                            app:layout_constraintStart_toEndOf="@id/location_title"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    </ScrollView>
+        </ScrollView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
