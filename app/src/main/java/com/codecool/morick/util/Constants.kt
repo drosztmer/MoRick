@@ -7,6 +7,7 @@ class Constants {
         const val BASE_URL = "https://rickandmortyapi.com/"
 
         const val UNKNOWN = "Unknown"
+        const val UNKNOWN_LOWERCASE = "unknown"
         const val ALIVE = "Alive"
         const val DEAD = "Dead"
 

@@ -83,6 +83,7 @@
                     android:layout_marginTop="@dimen/margin_medium"
                     android:gravity="end"
                     loadText="@{character.status}"
+                    applyStatusColor="@{character.status}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toEndOf="@+id/status_title"
