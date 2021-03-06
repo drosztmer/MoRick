@@ -1,14 +1,13 @@
-package com.codecool.morick.ui.fragments
+package com.codecool.morick.ui.fragments.details
 
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
-import coil.load
 import com.codecool.morick.R
 import com.codecool.morick.databinding.FragmentDetailsBinding
-import com.codecool.morick.models.RickAndMortyCharacter
+import com.codecool.morick.ui.fragments.DetailsFragmentArgs
 
 class DetailsFragment : Fragment() {
 

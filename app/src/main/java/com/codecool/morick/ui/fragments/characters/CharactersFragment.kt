@@ -1,4 +1,4 @@
-package com.codecool.morick.ui.fragments
+package com.codecool.morick.ui.fragments.characters
 
 import android.os.Bundle
 import android.util.Log

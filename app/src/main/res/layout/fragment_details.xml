@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/margin_medium"
         android:background="@color/blue_light"
-        tools:context=".ui.fragments.DetailsFragment">
+        tools:context=".ui.fragments.details.DetailsFragment">
 
         <ScrollView
             android:layout_width="match_parent"
