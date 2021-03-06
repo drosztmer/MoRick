@@ -1,13 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/blue_light"
     tools:context=".ui.fragments.location.LocationCharactersFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <com.todkars.shimmer.ShimmerRecyclerView
+        android:id="@+id/location_characters_recycler_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/margin_medium"
+        android:layout_marginEnd="@dimen/margin_medium"
+        android:orientation="vertical"
+        app:shimmer_recycler_item_count="3"
+        app:shimmer_recycler_layout="@layout/item_placeholder_character"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <ImageView
+        android:id="@+id/location_error_image_view"
+        android:layout_width="@dimen/image_size"
+        android:layout_height="@dimen/image_size"
+        android:alpha="0.5"
+        android:src="@drawable/ic_sad"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.37" />
+
+    <TextView
+        android:id="@+id/location_error_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:alpha="0.5"
+        android:text="@string/no_internet_connection"
+        android:textSize="@dimen/error_text_size"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/location_error_image_view"
+        app:layout_constraintStart_toStartOf="@+id/location_error_image_view"
+        app:layout_constraintTop_toBottomOf="@+id/location_error_image_view" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
