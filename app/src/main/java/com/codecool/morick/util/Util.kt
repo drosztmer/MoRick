@@ -8,10 +8,10 @@ class Util {
 
     companion object {
 
-        fun getEpisodeIdsFromUrls(episodeUrls: List<String>): List<String> {
+        fun getIdsFromUrls(urls: List<String>): List<String> {
             val ids = mutableListOf<String>()
-            for (episodeUrl in episodeUrls) {
-                val id = episodeUrl.substringAfterLast('/')
+            for (url in urls) {
+                val id = url.substringAfterLast('/')
                 ids.add(id)
             }
             return ids

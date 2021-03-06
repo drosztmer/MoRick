@@ -13,6 +13,7 @@
         android:id="@+id/character_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        onCharacterClickListener="@{character}"
         android:layout_marginTop="@dimen/margin_small"
         android:layout_marginBottom="@dimen/margin_small">
 
@@ -26,7 +27,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:strokeColor="@color/blue_dark">
+            app:strokeColor="@color/blue_medium"
+            app:strokeWidth="@dimen/stroke_width">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -39,7 +41,7 @@
                     android:layout_height="200dp"
                     app:layout_constraintWidth_percent=".5"
                     android:scaleType="centerCrop"
-                    loadImageFromUrl="@{character.image}"
+                    loadItemImageFromUrl="@{character.image}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -51,12 +53,9 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_big"
                     android:ellipsize="end"
-                    android:fontFamily="@font/kranky"
+                    style="@style/RickAndMortyTextBig"
                     android:gravity="center"
                     android:maxLines="4"
-                    android:textColor="@color/darkGray"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/item_name_size"
                     android:text="@{character.name}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

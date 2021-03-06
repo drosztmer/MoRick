@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.charactersFragment,
-                R.id.favoriteCharactersFragment
+                R.id.favoriteCharactersFragment,
             )
         )
 
