@@ -18,6 +18,7 @@ import com.codecool.morick.util.Util
 import com.codecool.morick.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
@@ -98,23 +99,25 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
     }
 
     private fun requestApiData() {
-        mainViewModel.getCharacters()
-        mainViewModel.rickAndMortyResponse.observe(viewLifecycleOwner, { response ->
-            when (response) {
-                is NetworkResult.Success -> {
-                    hideShimmerEffect()
-                    val characterResponse = response.data
-                    characterResponse?.let { mAdapter.setData(it) }
+        lifecycleScope.launch {
+            mainViewModel.getCharacters()
+            mainViewModel.rickAndMortyResponse.observe(viewLifecycleOwner, { response ->
+                when (response) {
+                    is NetworkResult.Success -> {
+                        hideShimmerEffect()
+                        val characterResponse = response.data
+                        characterResponse?.let { mAdapter.setData(it) }
+                    }
+                    is NetworkResult.Error -> {
+                        hideShimmerEffect()
+                        Toast.makeText(requireContext(), response.message.toString(), Toast.LENGTH_SHORT).show()
+                    }
+                    is NetworkResult.Loading -> {
+                        showShimmerEffect()
+                    }
                 }
-                is NetworkResult.Error -> {
-                    hideShimmerEffect()
-                    Toast.makeText(requireContext(), response.message.toString(), Toast.LENGTH_SHORT).show()
-                }
-                is NetworkResult.Loading -> {
-                    showShimmerEffect()
-                }
-            }
-        })
+            })
+        }
     }
 
     private fun searchApiData(name: String) {

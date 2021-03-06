@@ -1,7 +1,7 @@
 package com.codecool.morick.data
 
 import com.codecool.morick.data.network.RickAndMortyApi
-import com.codecool.morick.models.RickAndMortyEpisode
+import com.codecool.morick.models.Location
 import com.codecool.morick.models.RickAndMortyResponse
 import retrofit2.Response
 import javax.inject.Inject
@@ -18,8 +18,8 @@ class RemoteDataSource @Inject constructor(
         return rickAndMortyApi.searchCharacters(name)
     }
 
-    suspend fun getEpisodeById(id: String): Response<RickAndMortyEpisode> {
-        return rickAndMortyApi.getEpisodeById(id)
+    suspend fun getLocationById(id: String): Response<Location> {
+        return rickAndMortyApi.getLocationById(id)
     }
 
 }

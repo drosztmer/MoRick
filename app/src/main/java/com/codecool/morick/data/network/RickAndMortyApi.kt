@@ -1,6 +1,6 @@
 package com.codecool.morick.data.network
 
-import com.codecool.morick.models.RickAndMortyEpisode
+import com.codecool.morick.models.Location
 import com.codecool.morick.models.RickAndMortyResponse
 import retrofit2.Response
 import retrofit2.http.GET
@@ -16,6 +16,6 @@ interface RickAndMortyApi {
     suspend fun searchCharacters(@Query("name") name: String): Response<RickAndMortyResponse>
 
     @GET("/episode/{episodeId}")
-    suspend fun getEpisodeById(@Path("id") id: String): Response<RickAndMortyEpisode>
+    suspend fun getLocationById(@Path("id") id: String): Response<Location>
 
 }
