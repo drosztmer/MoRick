@@ -1,13 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/blue_light"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.fragments.location.LocationInfoFragment">
 
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-</FrameLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/location_name"
+                style="@style/RickAndMortyTextNameDark"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_medium"
+                android:gravity="center"
+                tools:text="Earth"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/type_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/type"
+                android:layout_margin="@dimen/margin_medium"
+                style="@style/RickAndMortyTextBig"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/location_name" />
+
+            <TextView
+                android:id="@+id/type_info"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/RickAndMortyTextInfo"
+                android:layout_marginHorizontal="@dimen/margin_medium"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:gravity="end"
+                tools:text="Unknown"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/type_title"
+                app:layout_constraintTop_toBottomOf="@id/location_name" />
+
+            <TextView
+                android:id="@+id/dimension_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/RickAndMortyTextBig"
+                android:text="@string/dimension"
+                android:layout_marginTop="@dimen/margin_medium"
+                app:layout_constraintStart_toStartOf="@id/type_title"
+                app:layout_constraintTop_toBottomOf="@id/type_info" />
+
+            <TextView
+                android:id="@+id/dimension_info"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/RickAndMortyTextInfo"
+                android:layout_marginStart="@dimen/margin_medium"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:gravity="end"
+                tools:text="Unknown"
+                app:layout_constraintEnd_toEndOf="@id/type_info"
+                app:layout_constraintStart_toEndOf="@id/dimension_title"
+                app:layout_constraintTop_toBottomOf="@id/type_info" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
