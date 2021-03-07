@@ -99,25 +99,27 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
     }
 
     private fun requestApiData() {
-        lifecycleScope.launch {
-            mainViewModel.getCharacters()
-            mainViewModel.rickAndMortyResponse.observe(viewLifecycleOwner, { response ->
-                when (response) {
-                    is NetworkResult.Success -> {
-                        hideShimmerEffect()
-                        val characterResponse = response.data
-                        characterResponse?.let { mAdapter.setData(it) }
-                    }
-                    is NetworkResult.Error -> {
-                        hideShimmerEffect()
-                        Toast.makeText(requireContext(), response.message.toString(), Toast.LENGTH_SHORT).show()
-                    }
-                    is NetworkResult.Loading -> {
-                        showShimmerEffect()
-                    }
+        mainViewModel.getCharacters()
+        mainViewModel.rickAndMortyResponse.observe(viewLifecycleOwner, { response ->
+            when (response) {
+                is NetworkResult.Success -> {
+                    hideShimmerEffect()
+                    val characterResponse = response.data
+                    characterResponse?.let { mAdapter.setData(it) }
                 }
-            })
-        }
+                is NetworkResult.Error -> {
+                    hideShimmerEffect()
+                    Toast.makeText(
+                        requireContext(),
+                        response.message.toString(),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                is NetworkResult.Loading -> {
+                    showShimmerEffect()
+                }
+            }
+        })
     }
 
     private fun searchApiData(name: String) {
@@ -132,7 +134,11 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
                 }
                 is NetworkResult.Error -> {
                     hideShimmerEffect()
-                    Toast.makeText(requireContext(), response.message.toString(), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        response.message.toString(),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
                 is NetworkResult.Loading -> {
                     showShimmerEffect()
