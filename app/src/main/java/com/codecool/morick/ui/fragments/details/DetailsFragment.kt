@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.codecool.morick.R
 import com.codecool.morick.databinding.FragmentDetailsBinding
-import com.codecool.morick.ui.fragments.DetailsFragmentArgs
 
 class DetailsFragment : Fragment() {
 

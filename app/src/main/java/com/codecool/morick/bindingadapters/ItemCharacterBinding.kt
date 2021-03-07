@@ -8,7 +8,7 @@ import androidx.navigation.findNavController
 import coil.load
 import com.codecool.morick.R
 import com.codecool.morick.models.RickAndMortyCharacter
-import com.codecool.morick.ui.fragments.CharactersFragmentDirections
+import com.codecool.morick.ui.fragments.characters.CharactersFragmentDirections
 import java.lang.Exception
 
 class ItemCharacterBinding {
