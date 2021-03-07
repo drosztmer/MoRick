@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.codecool.morick.R
 import com.codecool.morick.databinding.FragmentDetailsBinding
@@ -27,6 +28,10 @@ class DetailsFragment : Fragment() {
         _binding = FragmentDetailsBinding.inflate(inflater, container, false)
         val character = args.character
         binding.character = character
+        binding.locationCardview.setOnClickListener {
+            val action = DetailsFragmentDirections.actionDetailsFragmentToLocationFragment()
+            findNavController().navigate(action)
+        }
         return binding.root
     }
 

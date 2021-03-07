@@ -38,7 +38,7 @@
     <fragment
         android:id="@+id/locationFragment"
         android:name="com.codecool.morick.ui.fragments.location.LocationFragment"
-        android:label="fragment_location"
+        android:label="Location"
         tools:layout="@layout/fragment_location" >
         <action
             android:id="@+id/action_locationFragment_to_detailsFragment"
