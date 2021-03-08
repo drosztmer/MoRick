@@ -15,5 +15,4 @@
     <string name="save">Save</string>
     <string name="type">Type</string>
     <string name="dimension">Dimension</string>
-    <string name="location_error">An error occurred while loading data</string>
 </resources>

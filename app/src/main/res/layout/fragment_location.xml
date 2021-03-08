@@ -48,7 +48,7 @@
         android:id="@+id/location_error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/location_error"
+        android:text="@string/no_internet_connection"
         android:textColor="@color/darkGray"
         android:textSize="@dimen/text_size_medium"
         android:visibility="invisible"
