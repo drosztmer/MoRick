@@ -34,6 +34,7 @@ class LocationFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
+        mainViewModel.isLocationLoaded.value = false
     }
 
     override fun onCreateView(
@@ -63,8 +64,10 @@ class LocationFragment : Fragment() {
             when (response) {
                 is NetworkResult.Success -> {
                     binding.progressBar.isVisible = false
-                    binding.viewpager2.isVisible = true
-                    binding.locationError.isVisible = false
+                    binding.locationLayout.isVisible = true
+                    binding.errorImageView.isVisible = false
+                    binding.errorText.isVisible = false
+                    mainViewModel.isLocationLoaded.value = true
                     val locationResponse = response.data
                     locationResponse?.let { resultBundle.putParcelable(LOCATION_BUNDLE, it) }
 
@@ -73,8 +76,9 @@ class LocationFragment : Fragment() {
                 }
                 is NetworkResult.Error -> {
                     binding.progressBar.isVisible = false
-                    binding.viewpager2.isVisible = false
-                    binding.locationError.isVisible = true
+                    binding.locationLayout.isVisible = false
+                    binding.errorImageView.isVisible = true
+                    binding.errorText.isVisible = true
                     Toast.makeText(
                         requireContext(),
                         response.message.toString(),
@@ -83,8 +87,9 @@ class LocationFragment : Fragment() {
                 }
                 is NetworkResult.Loading -> {
                     binding.progressBar.isVisible = true
-                    binding.viewpager2.isVisible = false
-                    binding.locationError.isVisible = false
+                    binding.locationLayout.isVisible = false
+                    binding.errorImageView.isVisible = false
+                    binding.errorText.isVisible = false
                 }
             }
         })

@@ -36,6 +36,8 @@ class MainViewModel @Inject constructor(
         MutableLiveData()
     val locationResponse: MutableLiveData<NetworkResult<RickAndMortyLocation>> = MutableLiveData()
 
+    val isLocationLoaded: MutableLiveData<Boolean> = MutableLiveData(false)
+
     val readBackOnline = dataStoreRepository.readBackOnline.asLiveData()
 
     var networkStatus = false
