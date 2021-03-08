@@ -54,6 +54,39 @@ class LocationFragment : Fragment() {
             }
         }
 
+
+
+        return binding.root
+    }
+
+    private fun requestApiData(locationId: String) {
+        mainViewModel.getLocationById(locationId)
+        mainViewModel.locationResponse.observe(viewLifecycleOwner, { response ->
+            when (response) {
+                is NetworkResult.Success -> {
+                    binding.progressBar.isVisible = false
+                    val locationResponse = response.data
+                    locationResponse?.let { resultBundle.putParcelable(LOCATION_BUNDLE, it) }
+
+                    setupViewPagerWithFragments(resultBundle)
+
+                }
+                is NetworkResult.Error -> {
+                    binding.progressBar.isVisible = false
+                    Toast.makeText(
+                        requireContext(),
+                        response.message.toString(),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                is NetworkResult.Loading -> {
+                    binding.progressBar.isVisible = true
+                }
+            }
+        })
+    }
+
+    private fun setupViewPagerWithFragments(resultBundle: Bundle) {
         val fragments = ArrayList<Fragment>()
         fragments.add(LocationInfoFragment())
         fragments.add(LocationCharactersFragment())
@@ -73,32 +106,6 @@ class LocationFragment : Fragment() {
         TabLayoutMediator(binding.tablayout, binding.viewpager2) { tab, position ->
             tab.text = titles[position]
         }.attach()
-
-        return binding.root
-    }
-
-    private fun requestApiData(locationId: String) {
-        mainViewModel.getLocationById(locationId)
-        mainViewModel.locationResponse.observe(viewLifecycleOwner, { response ->
-            when (response) {
-                is NetworkResult.Success -> {
-                    binding.progressBar.isVisible = false
-                    val locationResponse = response.data
-                    locationResponse?.let { resultBundle.putParcelable(LOCATION_BUNDLE, it) }
-                }
-                is NetworkResult.Error -> {
-                    binding.progressBar.isVisible = false
-                    Toast.makeText(
-                        requireContext(),
-                        response.message.toString(),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-                is NetworkResult.Loading -> {
-                    binding.progressBar.isVisible = true
-                }
-            }
-        })
     }
 
     override fun onDestroyView() {
