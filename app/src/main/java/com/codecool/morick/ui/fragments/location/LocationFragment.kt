@@ -74,8 +74,6 @@ class LocationFragment : Fragment() {
             tab.text = titles[position]
         }.attach()
 
-
-
         return binding.root
     }
 

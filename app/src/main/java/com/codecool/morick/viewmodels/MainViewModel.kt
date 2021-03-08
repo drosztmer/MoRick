@@ -13,6 +13,7 @@ import androidx.lifecycle.viewModelScope
 import com.codecool.morick.data.DataStoreRepository
 import com.codecool.morick.data.Repository
 import com.codecool.morick.models.Location
+import com.codecool.morick.models.RickAndMortyLocation
 import com.codecool.morick.models.RickAndMortyResponse
 import com.codecool.morick.util.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -33,7 +34,7 @@ class MainViewModel @Inject constructor(
         MutableLiveData()
     val searchedRickAndMortyResponse: MutableLiveData<NetworkResult<RickAndMortyResponse>> =
         MutableLiveData()
-    val locationResponse: MutableLiveData<NetworkResult<Location>> = MutableLiveData()
+    val locationResponse: MutableLiveData<NetworkResult<RickAndMortyLocation>> = MutableLiveData()
 
     val readBackOnline = dataStoreRepository.readBackOnline.asLiveData()
 
@@ -114,7 +115,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    private fun handleLocationResponse(response: Response<Location>): NetworkResult<Location> {
+    private fun handleLocationResponse(response: Response<RickAndMortyLocation>): NetworkResult<RickAndMortyLocation> {
         when {
             response.code().toString() == "404" -> {
                 return NetworkResult.Error("Location Not Found")
