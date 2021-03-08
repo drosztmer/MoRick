@@ -43,5 +43,8 @@
         <action
             android:id="@+id/action_locationFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
+        <argument
+            android:name="locationId"
+            app:argType="string" />
     </fragment>
 </navigation>
