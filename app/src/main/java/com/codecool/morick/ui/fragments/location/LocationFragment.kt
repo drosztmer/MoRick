@@ -54,8 +54,6 @@ class LocationFragment : Fragment() {
             }
         }
 
-
-
         return binding.root
     }
 
@@ -65,6 +63,8 @@ class LocationFragment : Fragment() {
             when (response) {
                 is NetworkResult.Success -> {
                     binding.progressBar.isVisible = false
+                    binding.viewpager2.isVisible = true
+                    binding.locationError.isVisible = false
                     val locationResponse = response.data
                     locationResponse?.let { resultBundle.putParcelable(LOCATION_BUNDLE, it) }
 
@@ -73,6 +73,8 @@ class LocationFragment : Fragment() {
                 }
                 is NetworkResult.Error -> {
                     binding.progressBar.isVisible = false
+                    binding.viewpager2.isVisible = false
+                    binding.locationError.isVisible = true
                     Toast.makeText(
                         requireContext(),
                         response.message.toString(),
@@ -81,6 +83,8 @@ class LocationFragment : Fragment() {
                 }
                 is NetworkResult.Loading -> {
                     binding.progressBar.isVisible = true
+                    binding.viewpager2.isVisible = false
+                    binding.locationError.isVisible = false
                 }
             }
         })
