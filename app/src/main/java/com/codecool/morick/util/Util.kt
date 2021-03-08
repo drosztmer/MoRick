@@ -17,6 +17,10 @@ class Util {
             return ids
         }
 
+        fun getIdFromUrl(url: String): String {
+            return url.substringAfterLast('/')
+        }
+
         fun hideKeyboard(activity: Activity) {
             val inputMethodManager =
                 activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
