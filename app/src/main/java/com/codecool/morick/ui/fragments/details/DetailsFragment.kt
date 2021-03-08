@@ -9,6 +9,7 @@ import androidx.navigation.fragment.navArgs
 import com.codecool.morick.R
 import com.codecool.morick.databinding.FragmentDetailsBinding
 import com.codecool.morick.util.Constants.Companion.UNKNOWN_LOWERCASE
+import com.codecool.morick.util.Util
 
 class DetailsFragment : Fragment() {
 
@@ -31,7 +32,8 @@ class DetailsFragment : Fragment() {
         binding.character = character
         if (character.location.name != UNKNOWN_LOWERCASE) {
             binding.locationCardview.setOnClickListener {
-                val action = DetailsFragmentDirections.actionDetailsFragmentToLocationFragment()
+                val locationId = Util.getIdFromUrl(character.location.url)
+                val action = DetailsFragmentDirections.actionDetailsFragmentToLocationFragment(locationId)
                 findNavController().navigate(action)
             }
         }
