@@ -9,6 +9,7 @@ import coil.load
 import com.codecool.morick.R
 import com.codecool.morick.models.RickAndMortyCharacter
 import com.codecool.morick.ui.fragments.characters.CharactersFragmentDirections
+import com.codecool.morick.ui.fragments.location.LocationFragmentDirections
 import java.lang.Exception
 
 class ItemCharacterBinding {
@@ -24,16 +25,26 @@ class ItemCharacterBinding {
             }
         }
 
-        @BindingAdapter("onCharacterClickListener")
+        @BindingAdapter("onCharacterClickListener", "fromDestination", requireAll = true)
         @JvmStatic
-        fun onCharacterClickListener(itemCharacterLayout: ConstraintLayout, character: RickAndMortyCharacter) {
+        fun onCharacterClickListener(itemCharacterLayout: ConstraintLayout, character: RickAndMortyCharacter, from: String) {
             itemCharacterLayout.setOnClickListener {
-                try {
-                    val action = CharactersFragmentDirections.actionCharactersFragmentToDetailsFragment(character)
-                    itemCharacterLayout.findNavController().navigate(action)
-                } catch (e: Exception) {
-                    Log.d("onCharacterClickListener", e.toString())
+                if (from == "characters") {
+                    try {
+                        val action = CharactersFragmentDirections.actionCharactersFragmentToDetailsFragment(character)
+                        itemCharacterLayout.findNavController().navigate(action)
+                    } catch (e: Exception) {
+                        Log.d("onCharacterClickListener", e.toString())
+                    }
+                } else if (from == "location") {
+                    try {
+                        val action = LocationFragmentDirections.actionLocationFragmentToDetailsFragment(character)
+                        itemCharacterLayout.findNavController().navigate(action)
+                    } catch (e: Exception) {
+                        Log.d("onCharacterClickListener", e.toString())
+                    }
                 }
+
             }
         }
 

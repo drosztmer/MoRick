@@ -27,7 +27,7 @@ class LocationCharactersFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var mainViewModel: MainViewModel
-    private val mAdapter by lazy { CharactersAdapter() }
+    private val mAdapter by lazy { CharactersAdapter("location") }
 
     private lateinit var networkListener: NetworkListener
 
