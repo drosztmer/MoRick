@@ -76,9 +76,9 @@ class LocationFragment : Fragment() {
                 }
                 is NetworkResult.Error -> {
                     binding.progressBar.isVisible = false
-                    binding.locationLayout.isVisible = false
-                    binding.errorImageView.isVisible = true
-                    binding.errorText.isVisible = true
+                    binding.locationLayout.isVisible = mainViewModel.isLocationLoaded.value == true
+                    binding.errorImageView.isVisible = mainViewModel.isLocationLoaded.value == false
+                    binding.errorText.isVisible = mainViewModel.isLocationLoaded.value == false
                     Toast.makeText(
                         requireContext(),
                         response.message.toString(),
