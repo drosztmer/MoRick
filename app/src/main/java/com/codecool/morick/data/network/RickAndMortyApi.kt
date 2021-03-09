@@ -1,6 +1,7 @@
 package com.codecool.morick.data.network
 
 import com.codecool.morick.models.Location
+import com.codecool.morick.models.RickAndMortyCharacter
 import com.codecool.morick.models.RickAndMortyLocation
 import com.codecool.morick.models.RickAndMortyResponse
 import retrofit2.Response
@@ -18,5 +19,8 @@ interface RickAndMortyApi {
 
     @GET("/api/location/{id}")
     suspend fun getLocationById(@Path("id") id: String): Response<RickAndMortyLocation>
+
+    @GET("/api/character/{idList}")
+    suspend fun getMultipleCharacters(@Path("idList") idList: String): Response<List<RickAndMortyCharacter>>
 
 }
