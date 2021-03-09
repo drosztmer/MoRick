@@ -37,10 +37,10 @@ class CharactersAdapter: RecyclerView.Adapter<CharactersAdapter.MyViewHolder>() 
         return characters.size
     }
 
-    fun setData(newResponse: RickAndMortyResponse) {
-        val charactersDiffUtil = CharactersDiffUtil(characters, newResponse.results)
+    fun setData(newList: List<RickAndMortyCharacter>) {
+        val charactersDiffUtil = CharactersDiffUtil(characters, newList)
         val diffUtilResult = DiffUtil.calculateDiff(charactersDiffUtil)
-        characters = newResponse.results
+        characters = newList
         diffUtilResult.dispatchUpdatesTo(this)
     }
 }

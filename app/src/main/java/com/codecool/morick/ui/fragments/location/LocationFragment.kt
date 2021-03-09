@@ -45,6 +45,10 @@ class LocationFragment : Fragment() {
 
         val locationId = args.locationId
 
+        mainViewModel.readBackOnline.observe(viewLifecycleOwner, {
+            mainViewModel.backOnline = it
+        })
+
         lifecycleScope.launchWhenStarted {
             networkListener = NetworkListener()
             networkListener.checkNetworkAvailability(requireContext()).collect() { status ->

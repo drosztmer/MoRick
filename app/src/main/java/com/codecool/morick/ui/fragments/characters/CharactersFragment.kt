@@ -105,7 +105,7 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
                 is NetworkResult.Success -> {
                     hideShimmerEffect()
                     val characterResponse = response.data
-                    characterResponse?.let { mAdapter.setData(it) }
+                    characterResponse?.let { mAdapter.setData(it.results) }
                 }
                 is NetworkResult.Error -> {
                     hideShimmerEffect()
@@ -130,7 +130,7 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
                 is NetworkResult.Success -> {
                     hideShimmerEffect()
                     val characterResponse = response.data
-                    characterResponse?.let { mAdapter.setData(it) }
+                    characterResponse?.let { mAdapter.setData(it.results) }
                 }
                 is NetworkResult.Error -> {
                     hideShimmerEffect()
