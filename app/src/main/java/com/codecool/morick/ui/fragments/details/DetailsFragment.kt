@@ -37,6 +37,13 @@ class DetailsFragment : Fragment() {
                 findNavController().navigate(action)
             }
         }
+        if (character.origin.name != UNKNOWN_LOWERCASE) {
+            binding.originCardview.setOnClickListener {
+                val locationId = Util.getIdFromUrl(character.origin.url)
+                val action = DetailsFragmentDirections.actionDetailsFragmentToLocationFragment(locationId)
+                findNavController().navigate(action)
+            }
+        }
         return binding.root
     }
 
