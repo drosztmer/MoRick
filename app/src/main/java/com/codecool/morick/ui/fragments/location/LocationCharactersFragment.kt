@@ -15,19 +15,22 @@ import com.codecool.morick.adapters.CharactersAdapter
 import com.codecool.morick.databinding.FragmentLocationCharactersBinding
 import com.codecool.morick.models.RickAndMortyLocation
 import com.codecool.morick.util.Constants
+import com.codecool.morick.util.Constants.Companion.LOCATION
 import com.codecool.morick.util.NetworkListener
 import com.codecool.morick.util.NetworkResult
 import com.codecool.morick.util.Util
 import com.codecool.morick.viewmodels.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
+@AndroidEntryPoint
 class LocationCharactersFragment : Fragment() {
 
     private var _binding: FragmentLocationCharactersBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var mainViewModel: MainViewModel
-    private val mAdapter by lazy { CharactersAdapter("location") }
+    private val mAdapter by lazy { CharactersAdapter(LOCATION) }
 
     private lateinit var networkListener: NetworkListener
 
@@ -43,6 +46,10 @@ class LocationCharactersFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentLocationCharactersBinding.inflate(inflater, container, false)
         setupRecyclerView()
+
+        binding.lifecycleOwner = this
+        binding.mainViewModel = mainViewModel
+        binding.adapter = mAdapter
 
         val args = arguments
         val location: RickAndMortyLocation? = args?.getParcelable(Constants.LOCATION_BUNDLE)
@@ -65,10 +72,6 @@ class LocationCharactersFragment : Fragment() {
                 requestApiData(locationIdQuery)
             }
         }
-
-        binding.lifecycleOwner = this
-        binding.mainViewModel = mainViewModel
-        binding.adapter = mAdapter
 
         return binding.root
     }

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.codecool.morick.R
 import com.codecool.morick.adapters.CharactersAdapter
 import com.codecool.morick.databinding.FragmentCharactersBinding
+import com.codecool.morick.util.Constants.Companion.CHARACTERS
 import com.codecool.morick.util.NetworkListener
 import com.codecool.morick.util.NetworkResult
 import com.codecool.morick.util.Util
@@ -27,7 +28,7 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
     private val binding get() = _binding!!
 
     private lateinit var mainViewModel: MainViewModel
-    private val mAdapter by lazy { CharactersAdapter("characters") }
+    private val mAdapter by lazy { CharactersAdapter(CHARACTERS) }
 
     private lateinit var networkListener: NetworkListener
 

@@ -18,8 +18,10 @@ import com.codecool.morick.util.NetworkListener
 import com.codecool.morick.util.NetworkResult
 import com.codecool.morick.viewmodels.MainViewModel
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
+@AndroidEntryPoint
 class LocationFragment : Fragment() {
 
     private var _binding: FragmentLocationBinding? = null
