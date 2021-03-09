@@ -43,6 +43,8 @@ class LocationCharactersFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        Log.d("LOCATIONCHARACTERSSSSSSS", "RE")
+
         // Inflate the layout for this fragment
         _binding = FragmentLocationCharactersBinding.inflate(inflater, container, false)
         setupRecyclerView()
@@ -59,19 +61,7 @@ class LocationCharactersFragment : Fragment() {
             ""
         }
 
-        mainViewModel.readBackOnline.observe(viewLifecycleOwner, {
-            mainViewModel.backOnline = it
-        })
-
-        lifecycleScope.launchWhenStarted {
-            networkListener = NetworkListener()
-            networkListener.checkNetworkAvailability(requireContext()).collect() { status ->
-                Log.d("NetworkListener", status.toString())
-                mainViewModel.networkStatus = status
-                mainViewModel.showNetworkStatus()
-                requestApiData(locationIdQuery)
-            }
-        }
+        requestApiData(locationIdQuery)
 
         return binding.root
     }
