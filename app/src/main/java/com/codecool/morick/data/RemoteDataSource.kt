@@ -6,6 +6,7 @@ import com.codecool.morick.models.RickAndMortyCharacter
 import com.codecool.morick.models.RickAndMortyLocation
 import com.codecool.morick.models.RickAndMortyResponse
 import retrofit2.Response
+import retrofit2.http.Path
 import javax.inject.Inject
 
 class RemoteDataSource @Inject constructor(
@@ -26,6 +27,10 @@ class RemoteDataSource @Inject constructor(
 
     suspend fun getMultipleCharacters(idList: String): Response<List<RickAndMortyCharacter>> {
         return rickAndMortyApi.getMultipleCharacters(idList)
+    }
+
+    suspend fun getNextPage(pageNumber: Int): Response<RickAndMortyResponse> {
+        return rickAndMortyApi.getNextPage(pageNumber)
     }
 
 }
