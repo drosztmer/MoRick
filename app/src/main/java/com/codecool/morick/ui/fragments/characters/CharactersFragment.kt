@@ -81,23 +81,23 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
             adapter = mAdapter
             layoutManager = mLayoutManager
         }
-//        binding.charactersRecyclerView.addOnScrollListener(object :
-//            RecyclerView.OnScrollListener() {
-//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-//                super.onScrolled(recyclerView, dx, dy)
-//                if (dy > 0) {
-//                    val visibleItemCount = mLayoutManager.childCount
-//                    val pastVisibleItem = mLayoutManager.findFirstVisibleItemPosition()
-//                    val total = mLayoutManager.itemCount
-//
-//                    if (!loading) {
-//                        if ((visibleItemCount + pastVisibleItem) >= total && pastVisibleItem >= 0) {
-//                            requestNextPage(name)
-//                        }
-//                    }
-//                }
-//            }
-//        })
+        binding.charactersRecyclerView.addOnScrollListener(object :
+            RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (dy > 0) {
+                    val visibleItemCount = mLayoutManager.childCount
+                    val pastVisibleItem = mLayoutManager.findFirstVisibleItemPosition()
+                    val total = mLayoutManager.itemCount
+
+                    if (!loading) {
+                        if ((visibleItemCount + pastVisibleItem) >= total && pastVisibleItem >= 0) {
+                            requestNextPage(name)
+                        }
+                    }
+                }
+            }
+        })
         showShimmerEffect()
     }
 
