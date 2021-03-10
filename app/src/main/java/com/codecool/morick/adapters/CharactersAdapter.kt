@@ -1,5 +1,6 @@
 package com.codecool.morick.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -11,7 +12,7 @@ import com.codecool.morick.util.CharactersDiffUtil
 
 class CharactersAdapter(val from: String): RecyclerView.Adapter<CharactersAdapter.MyViewHolder>() {
 
-    private var characters = emptyList<RickAndMortyCharacter>()
+    private var characters: MutableList<RickAndMortyCharacter> = mutableListOf()
 
     class MyViewHolder(private val binding: ItemCharacterBinding): RecyclerView.ViewHolder(binding.root) {
 
@@ -41,7 +42,14 @@ class CharactersAdapter(val from: String): RecyclerView.Adapter<CharactersAdapte
     fun setData(newList: List<RickAndMortyCharacter>) {
         val charactersDiffUtil = CharactersDiffUtil(characters, newList)
         val diffUtilResult = DiffUtil.calculateDiff(charactersDiffUtil)
-        characters = newList
+        val newMutableList = newList.toMutableList()
+        characters = newMutableList
         diffUtilResult.dispatchUpdatesTo(this)
+    }
+
+    fun addToList(list: List<RickAndMortyCharacter>) {
+        Log.d("ADDTOLISTTTTTTTTTTTTTTT", "!")
+        characters = (characters + list) as MutableList<RickAndMortyCharacter>
+        notifyDataSetChanged()
     }
 }

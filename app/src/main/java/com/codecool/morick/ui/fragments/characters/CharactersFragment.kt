@@ -15,7 +15,6 @@ import com.codecool.morick.R
 import com.codecool.morick.adapters.CharactersAdapter
 import com.codecool.morick.databinding.FragmentCharactersBinding
 import com.codecool.morick.util.Constants.Companion.CHARACTERS
-import com.codecool.morick.util.Constants.Companion.MAX_PAGE_NUMBER
 import com.codecool.morick.util.NetworkListener
 import com.codecool.morick.util.NetworkResult
 import com.codecool.morick.util.Util
@@ -34,12 +33,11 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
 
     private lateinit var networkListener: NetworkListener
 
-    private var loading = true
-    private var pastVisibleItems = 0
-    private var visibleItemCount = 0
-    private var totalItemCount = 0
+    private var loading = false
+    private var onSCrollExecuted = false
     private var pageNumber = 1
-    private val maxPageNumber = MAX_PAGE_NUMBER
+    private var name = ""
+    private var maxPageNumber = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +49,7 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCharactersBinding.inflate(inflater, container, false)
+        pageNumber = 1
         setupRecyclerView()
 
         binding.lifecycleOwner = this
@@ -69,7 +68,7 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
                 Log.d("NetworkListener", status.toString())
                 mainViewModel.networkStatus = status
                 mainViewModel.showNetworkStatus()
-                requestApiData()
+                requestApiData("")
             }
         }
 
@@ -85,20 +84,21 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
         binding.charactersRecyclerView.addOnScrollListener(object :
             RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                if (dy > 0) {
-                    visibleItemCount = mLayoutManager.childCount
-                    totalItemCount = mLayoutManager.itemCount
-                    pastVisibleItems = mLayoutManager.findFirstVisibleItemPosition()
-
-                    if (loading && pageNumber < maxPageNumber) {
-                        if ((visibleItemCount + pastVisibleItems) >= totalItemCount) {
-                            loading = false
-                            requestNextPage()
-                            loading = true
-
-                        }
-                    }
+                super.onScrolled(recyclerView, dx, dy)
+                if(!recyclerView.canScrollVertically(1)) {
+                    requestNextPage(name)
                 }
+//                if (dy > 0) {
+//                    val visibleItemCount = mLayoutManager.childCount
+//                    val pastVisibleItem = mLayoutManager.findFirstVisibleItemPosition()
+//                    val total = mAdapter.itemCount
+//
+//                    if (!loading) {
+//                        if ((visibleItemCount + pastVisibleItem) >= total) {
+//                            requestNextPage(name)
+//                        }
+//                    }
+//                }
             }
         })
         showShimmerEffect()
@@ -118,7 +118,9 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
 
     override fun onQueryTextSubmit(query: String?): Boolean {
         if (query != null) {
-            searchApiData(query)
+            pageNumber = 1
+            name = query
+            requestApiData(name)
         }
         Util.hideKeyboard(requireActivity())
         return true
@@ -128,14 +130,17 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
         return true
     }
 
-    private fun requestApiData() {
-        mainViewModel.getCharacters()
+    private fun requestApiData(name: String) {
+        mainViewModel.getCharacters(name, pageNumber)
         mainViewModel.rickAndMortyResponse.observe(viewLifecycleOwner, { response ->
             when (response) {
                 is NetworkResult.Success -> {
                     hideShimmerEffect()
                     val characterResponse = response.data
-                    characterResponse?.let { mAdapter.setData(it.results) }
+                    characterResponse?.let {
+                        maxPageNumber = it.info.pages
+                        mAdapter.setData(it.results)
+                    }
                 }
                 is NetworkResult.Error -> {
                     hideShimmerEffect()
@@ -152,39 +157,18 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
         })
     }
 
-    private fun searchApiData(name: String) {
-        showShimmerEffect()
-        mainViewModel.searchCharacters(name)
-        mainViewModel.searchedRickAndMortyResponse.observe(viewLifecycleOwner, { response ->
-            when (response) {
-                is NetworkResult.Success -> {
-                    hideShimmerEffect()
-                    val characterResponse = response.data
-                    characterResponse?.let { mAdapter.setData(it.results) }
-                }
-                is NetworkResult.Error -> {
-                    hideShimmerEffect()
-                    Toast.makeText(
-                        requireContext(),
-                        response.message.toString(),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-                is NetworkResult.Loading -> {
-                    showShimmerEffect()
-                }
-            }
-        })
-    }
-
-    private fun requestNextPage() {
+    private fun requestNextPage(name: String) {
+        loading = true
         binding.progressBar.isVisible = true
         pageNumber += 1
-        mainViewModel.getNextPage(pageNumber)
+        mainViewModel.getNextPage(name, pageNumber)
         mainViewModel.nextPageResponse.observe(viewLifecycleOwner, { response ->
             when (response) {
                 is NetworkResult.Success -> {
                     binding.progressBar.isVisible = false
+                    val characterResponse = response.data
+                    characterResponse?.let { mAdapter.addToList(it.results) }
+                    loading = false
                 }
                 is NetworkResult.Error -> {
                     binding.progressBar.isVisible = false
@@ -193,6 +177,7 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
                         response.message.toString(),
                         Toast.LENGTH_SHORT
                     ).show()
+                    loading = false
                 }
                 is NetworkResult.Loading -> {
                     binding.progressBar.isVisible = true

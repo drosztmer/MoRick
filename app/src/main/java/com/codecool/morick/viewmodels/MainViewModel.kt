@@ -4,7 +4,6 @@ import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
@@ -12,7 +11,6 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.codecool.morick.data.DataStoreRepository
 import com.codecool.morick.data.Repository
-import com.codecool.morick.models.Location
 import com.codecool.morick.models.RickAndMortyCharacter
 import com.codecool.morick.models.RickAndMortyLocation
 import com.codecool.morick.models.RickAndMortyResponse
@@ -33,10 +31,9 @@ class MainViewModel @Inject constructor(
 
     val rickAndMortyResponse: MutableLiveData<NetworkResult<RickAndMortyResponse>> =
         MutableLiveData()
-    val searchedRickAndMortyResponse: MutableLiveData<NetworkResult<RickAndMortyResponse>> =
+    val nextPageResponse: MutableLiveData<NetworkResult<RickAndMortyResponse>> =
         MutableLiveData()
     val locationResponse: MutableLiveData<NetworkResult<RickAndMortyLocation>> = MutableLiveData()
-    val nextPageResponse: MutableLiveData<NetworkResult<RickAndMortyResponse>> = MutableLiveData()
 
     val isLocationLoaded: MutableLiveData<Boolean> = MutableLiveData(false)
 
@@ -47,17 +44,15 @@ class MainViewModel @Inject constructor(
     var networkStatus = false
     var backOnline = false
 
-    fun getCharacters() = viewModelScope.launch {
-        getCharactersSafeCall()
+    fun getCharacters(name: String, pageNumber: Int) = viewModelScope.launch {
+        getCharactersSafeCall(name, pageNumber)
     }
 
-    fun searchCharacters(name: String) = viewModelScope.launch {
-        searchCharactersSafeCall(name)
+    fun getNextPage(name: String, pageNumber: Int) = viewModelScope.launch {
+        getNextPageSafeCall(name, pageNumber)
     }
 
-    fun getNextPage(pageNumber: Int) = viewModelScope.launch {
-        getNextPageSafeCall(pageNumber)
-    }
+
 
     fun getLocationById(locationId: String) = viewModelScope.launch {
         getLocationByIdSafeCall(locationId)
@@ -71,11 +66,11 @@ class MainViewModel @Inject constructor(
         dataStoreRepository.saveBackOnline(backOnline)
     }
 
-    private suspend fun getCharactersSafeCall() {
+    private suspend fun getCharactersSafeCall(name: String, pageNumber : Int) {
         rickAndMortyResponse.value = NetworkResult.Loading()
         if (hasInternetConnection()) {
             try {
-                val response = repository.remote.getAllCharacters()
+                val response = repository.remote.getCharacters(name, pageNumber)
                 rickAndMortyResponse.value = handleRickAndMortyResponse(response)
             } catch (e: Exception) {
                 rickAndMortyResponse.value = NetworkResult.Error("Characters Not Found")
@@ -86,17 +81,17 @@ class MainViewModel @Inject constructor(
 
     }
 
-    private suspend fun searchCharactersSafeCall(name: String) {
-        searchedRickAndMortyResponse.value = NetworkResult.Loading()
+    private suspend fun getNextPageSafeCall(name: String, pageNumber: Int) {
+        nextPageResponse.value = NetworkResult.Loading()
         if (hasInternetConnection()) {
             try {
-                val response = repository.remote.searchCharacters(name)
-                searchedRickAndMortyResponse.value = handleRickAndMortyResponse(response)
+                val response = repository.remote.getCharacters(name, pageNumber)
+                nextPageResponse.value = handleRickAndMortyResponse(response)
             } catch (e: Exception) {
-                searchedRickAndMortyResponse.value = NetworkResult.Error("Characters Not Found")
+                nextPageResponse.value = NetworkResult.Error("Characters Not Found")
             }
         } else {
-            searchedRickAndMortyResponse.value = NetworkResult.Error("No Internet Connection")
+            nextPageResponse.value = NetworkResult.Error("No Internet Connection")
         }
     }
 
@@ -111,20 +106,6 @@ class MainViewModel @Inject constructor(
             }
         } else {
             locationResponse.value = NetworkResult.Error("No Internet Connection")
-        }
-    }
-
-    private suspend fun getNextPageSafeCall(pageNumber: Int) {
-        nextPageResponse.value = NetworkResult.Loading()
-        if (hasInternetConnection()) {
-            try {
-                val response = repository.remote.getNextPage(pageNumber)
-                nextPageResponse.value = handleRickAndMortyResponse(response)
-            } catch (e: Exception) {
-                nextPageResponse.value = NetworkResult.Error("Location Not Found")
-            }
-        } else {
-            nextPageResponse.value = NetworkResult.Error("No Internet Connection")
         }
     }
 
