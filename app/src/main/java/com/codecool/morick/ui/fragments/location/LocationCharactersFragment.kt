@@ -43,8 +43,6 @@ class LocationCharactersFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        Log.d("LOCATIONCHARACTERSSSSSSS", "RE")
-
         // Inflate the layout for this fragment
         _binding = FragmentLocationCharactersBinding.inflate(inflater, container, false)
         setupRecyclerView()

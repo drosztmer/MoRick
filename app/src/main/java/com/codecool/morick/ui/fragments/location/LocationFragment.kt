@@ -44,7 +44,6 @@ class LocationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentLocationBinding.inflate(inflater, container, false)
-
         val locationId = args.locationId
 
         mainViewModel.readBackOnline.observe(viewLifecycleOwner, {
