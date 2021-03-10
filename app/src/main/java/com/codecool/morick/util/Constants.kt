@@ -13,6 +13,8 @@ class Constants {
         const val CHARACTERS = "characters"
         const val LOCATION = "location"
 
+        const val MAX_PAGE_NUMBER = 34
+
         const val LOCATION_BUNDLE = "locationBundle"
 
         const val PREFERENCES_NAME = "rick_and_morty_preferences"

@@ -15,13 +15,13 @@ import com.codecool.morick.R
 import com.codecool.morick.adapters.CharactersAdapter
 import com.codecool.morick.databinding.FragmentCharactersBinding
 import com.codecool.morick.util.Constants.Companion.CHARACTERS
+import com.codecool.morick.util.Constants.Companion.MAX_PAGE_NUMBER
 import com.codecool.morick.util.NetworkListener
 import com.codecool.morick.util.NetworkResult
 import com.codecool.morick.util.Util
 import com.codecool.morick.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
@@ -38,7 +38,8 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
     private var pastVisibleItems = 0
     private var visibleItemCount = 0
     private var totalItemCount = 0
-    private var page = 1
+    private var pageNumber = 1
+    private val maxPageNumber = MAX_PAGE_NUMBER
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,14 +82,15 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
             adapter = mAdapter
             layoutManager = mLayoutManager
         }
-        binding.charactersRecyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+        binding.charactersRecyclerView.addOnScrollListener(object :
+            RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 if (dy > 0) {
                     visibleItemCount = mLayoutManager.childCount
                     totalItemCount = mLayoutManager.itemCount
                     pastVisibleItems = mLayoutManager.findFirstVisibleItemPosition()
 
-                    if (loading) {
+                    if (loading && pageNumber < maxPageNumber) {
                         if ((visibleItemCount + pastVisibleItems) >= totalItemCount) {
                             loading = false
                             requestNextPage()
@@ -177,6 +179,26 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
 
     private fun requestNextPage() {
         binding.progressBar.isVisible = true
+        pageNumber += 1
+        mainViewModel.getNextPage(pageNumber)
+        mainViewModel.nextPageResponse.observe(viewLifecycleOwner, { response ->
+            when (response) {
+                is NetworkResult.Success -> {
+                    binding.progressBar.isVisible = false
+                }
+                is NetworkResult.Error -> {
+                    binding.progressBar.isVisible = false
+                    Toast.makeText(
+                        requireContext(),
+                        response.message.toString(),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                is NetworkResult.Loading -> {
+                    binding.progressBar.isVisible = true
+                }
+            }
+        })
 
     }
 

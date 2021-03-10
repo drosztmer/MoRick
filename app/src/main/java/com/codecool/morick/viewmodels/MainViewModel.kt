@@ -36,6 +36,7 @@ class MainViewModel @Inject constructor(
     val searchedRickAndMortyResponse: MutableLiveData<NetworkResult<RickAndMortyResponse>> =
         MutableLiveData()
     val locationResponse: MutableLiveData<NetworkResult<RickAndMortyLocation>> = MutableLiveData()
+    val nextPageResponse: MutableLiveData<NetworkResult<RickAndMortyResponse>> = MutableLiveData()
 
     val isLocationLoaded: MutableLiveData<Boolean> = MutableLiveData(false)
 
@@ -52,6 +53,10 @@ class MainViewModel @Inject constructor(
 
     fun searchCharacters(name: String) = viewModelScope.launch {
         searchCharactersSafeCall(name)
+    }
+
+    fun getNextPage(pageNumber: Int) = viewModelScope.launch {
+        getNextPageSafeCall(pageNumber)
     }
 
     fun getLocationById(locationId: String) = viewModelScope.launch {
@@ -106,6 +111,20 @@ class MainViewModel @Inject constructor(
             }
         } else {
             locationResponse.value = NetworkResult.Error("No Internet Connection")
+        }
+    }
+
+    private suspend fun getNextPageSafeCall(pageNumber: Int) {
+        nextPageResponse.value = NetworkResult.Loading()
+        if (hasInternetConnection()) {
+            try {
+                val response = repository.remote.getNextPage(pageNumber)
+                nextPageResponse.value = handleRickAndMortyResponse(response)
+            } catch (e: Exception) {
+                nextPageResponse.value = NetworkResult.Error("Location Not Found")
+            }
+        } else {
+            nextPageResponse.value = NetworkResult.Error("No Internet Connection")
         }
     }
 
