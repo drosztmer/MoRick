@@ -28,7 +28,6 @@ class DetailsBinding {
         @BindingAdapter("loadText")
         @JvmStatic
         fun loadText(textView: TextView, detailText: String) {
-            Log.d("TEXT: ", detailText)
             if (detailText == UNKNOWN_LOWERCASE || detailText.isEmpty()) {
                 textView.text = UNKNOWN
             } else {

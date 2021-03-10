@@ -8,13 +8,17 @@ class Util {
 
     companion object {
 
-        fun getIdsFromUrls(urls: List<String>): List<String> {
+        fun getIdQueryFromUrls(urls: List<String>): String {
             val ids = mutableListOf<String>()
             for (url in urls) {
                 val id = url.substringAfterLast('/')
                 ids.add(id)
             }
-            return ids
+            return ids.joinToString(separator = ",")
+        }
+
+        fun getIdFromUrl(url: String): String {
+            return url.substringAfterLast('/')
         }
 
         fun hideKeyboard(activity: Activity) {
