@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -37,6 +38,7 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
     private var pastVisibleItems = 0
     private var visibleItemCount = 0
     private var totalItemCount = 0
+    private var page = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,7 +91,7 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
                     if (loading) {
                         if ((visibleItemCount + pastVisibleItems) >= totalItemCount) {
                             loading = false
-
+                            requestNextPage()
                             loading = true
 
                         }
@@ -171,6 +173,11 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
                 }
             }
         })
+    }
+
+    private fun requestNextPage() {
+        binding.progressBar.isVisible = true
+
     }
 
     private fun showShimmerEffect() {

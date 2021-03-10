@@ -1,6 +1,5 @@
 package com.codecool.morick.data.network
 
-import com.codecool.morick.models.Location
 import com.codecool.morick.models.RickAndMortyCharacter
 import com.codecool.morick.models.RickAndMortyLocation
 import com.codecool.morick.models.RickAndMortyResponse
@@ -22,5 +21,8 @@ interface RickAndMortyApi {
 
     @GET("/api/character/{idList}")
     suspend fun getMultipleCharacters(@Path("idList") idList: String): Response<List<RickAndMortyCharacter>>
+
+    @GET("/api/character/?page={pageNumber}")
+    suspend fun getNextPage(@Path("pageNumber") pageNumber: Int): Response<RickAndMortyResponse>
 
 }
