@@ -9,14 +9,15 @@ import com.codecool.morick.models.RickAndMortyCharacter
 import com.codecool.morick.models.RickAndMortyResponse
 import com.codecool.morick.util.CharactersDiffUtil
 
-class CharactersAdapter: RecyclerView.Adapter<CharactersAdapter.MyViewHolder>() {
+class CharactersAdapter(val from: String): RecyclerView.Adapter<CharactersAdapter.MyViewHolder>() {
 
     private var characters = emptyList<RickAndMortyCharacter>()
 
     class MyViewHolder(private val binding: ItemCharacterBinding): RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(character: RickAndMortyCharacter) {
+        fun bind(character: RickAndMortyCharacter, from: String) {
             binding.character = character
+            binding.from = from
             binding.executePendingBindings()
         }
 
@@ -30,17 +31,17 @@ class CharactersAdapter: RecyclerView.Adapter<CharactersAdapter.MyViewHolder>() 
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentCharacter = characters[position]
-        holder.bind(currentCharacter)
+        holder.bind(currentCharacter, from)
     }
 
     override fun getItemCount(): Int {
         return characters.size
     }
 
-    fun setData(newResponse: RickAndMortyResponse) {
-        val charactersDiffUtil = CharactersDiffUtil(characters, newResponse.results)
+    fun setData(newList: List<RickAndMortyCharacter>) {
+        val charactersDiffUtil = CharactersDiffUtil(characters, newList)
         val diffUtilResult = DiffUtil.calculateDiff(charactersDiffUtil)
-        characters = newResponse.results
+        characters = newList
         diffUtilResult.dispatchUpdatesTo(this)
     }
 }

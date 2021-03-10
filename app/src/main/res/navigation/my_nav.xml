@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/charactersFragment"
-        android:name="com.codecool.morick.ui.fragments.CharactersFragment"
+        android:name="com.codecool.morick.ui.fragments.characters.CharactersFragment"
         android:label="Characters"
         tools:layout="@layout/fragment_characters" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/favoriteCharactersFragment"
-        android:name="com.codecool.morick.ui.fragments.FavoriteCharactersFragment"
+        android:name="com.codecool.morick.ui.fragments.favoritecharacters.FavoriteCharactersFragment"
         android:label="Favorites"
         tools:layout="@layout/fragment_favorite_characters" >
         <action
@@ -25,11 +25,26 @@
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.codecool.morick.ui.fragments.DetailsFragment"
+        android:name="com.codecool.morick.ui.fragments.details.DetailsFragment"
         android:label="Details"
         tools:layout="@layout/fragment_details" >
         <argument
             android:name="character"
             app:argType="com.codecool.morick.models.RickAndMortyCharacter" />
+        <action
+            android:id="@+id/action_detailsFragment_to_locationFragment"
+            app:destination="@id/locationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/locationFragment"
+        android:name="com.codecool.morick.ui.fragments.location.LocationFragment"
+        android:label="Location"
+        tools:layout="@layout/fragment_location" >
+        <action
+            android:id="@+id/action_locationFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+        <argument
+            android:name="locationId"
+            app:argType="string" />
     </fragment>
 </navigation>
