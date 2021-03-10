@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.codecool.morick.R
 import com.codecool.morick.adapters.CharactersAdapter
 import com.codecool.morick.databinding.FragmentCharactersBinding
@@ -31,6 +32,11 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
     private val mAdapter by lazy { CharactersAdapter(CHARACTERS) }
 
     private lateinit var networkListener: NetworkListener
+
+    private var loading = true
+    private var pastVisibleItems = 0
+    private var visibleItemCount = 0
+    private var totalItemCount = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,10 +74,29 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
     }
 
     private fun setupRecyclerView() {
+        val mLayoutManager = LinearLayoutManager(requireContext())
         binding.charactersRecyclerView.apply {
             adapter = mAdapter
-            layoutManager = LinearLayoutManager(requireContext())
+            layoutManager = mLayoutManager
         }
+        binding.charactersRecyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if (dy > 0) {
+                    visibleItemCount = mLayoutManager.childCount
+                    totalItemCount = mLayoutManager.itemCount
+                    pastVisibleItems = mLayoutManager.findFirstVisibleItemPosition()
+
+                    if (loading) {
+                        if ((visibleItemCount + pastVisibleItems) >= totalItemCount) {
+                            loading = false
+
+                            loading = true
+
+                        }
+                    }
+                }
+            }
+        })
         showShimmerEffect()
     }
 
