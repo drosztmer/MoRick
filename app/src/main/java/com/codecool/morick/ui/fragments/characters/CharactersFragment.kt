@@ -34,7 +34,6 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
     private lateinit var networkListener: NetworkListener
 
     private var loading = false
-    private var onSCrollExecuted = false
     private var pageNumber = 1
     private var name = ""
     private var maxPageNumber = 0
@@ -72,6 +71,8 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
             }
         }
 
+        observeNextPageResponse()
+
         return binding.root
     }
 
@@ -89,8 +90,7 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
                     val visibleItemCount = mLayoutManager.childCount
                     val pastVisibleItem = mLayoutManager.findFirstVisibleItemPosition()
                     val total = mLayoutManager.itemCount
-
-                    if (!loading) {
+                    if (!loading && pageNumber < maxPageNumber) {
                         if ((visibleItemCount + pastVisibleItem) >= total && pastVisibleItem >= 0) {
                             requestNextPage(name)
                         }
@@ -159,6 +159,9 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
         binding.progressBar.isVisible = true
         pageNumber += 1
         mainViewModel.getNextPage(name, pageNumber)
+    }
+
+    private fun observeNextPageResponse() {
         mainViewModel.nextPageResponse.observe(viewLifecycleOwner, { response ->
             when (response) {
                 is NetworkResult.Success -> {
@@ -181,7 +184,6 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
                 }
             }
         })
-
     }
 
     private fun showShimmerEffect() {
