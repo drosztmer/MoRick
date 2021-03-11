@@ -47,7 +47,6 @@ class CharactersAdapter(val from: String): RecyclerView.Adapter<CharactersAdapte
     }
 
     fun addToList(newList: List<RickAndMortyCharacter>) {
-        Log.d("ADDTOLISTTTTTTTTTTTTTTT", "!")
         val charactersDiffUtil = CharactersDiffUtil(characters, characters + newList)
         val diffUtilResult = DiffUtil.calculateDiff(charactersDiffUtil)
         characters.addAll(newList)
