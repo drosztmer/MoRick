@@ -67,6 +67,7 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
                 Log.d("NetworkListener", status.toString())
                 mainViewModel.networkStatus = status
                 mainViewModel.showNetworkStatus()
+                pageNumber = 1
                 requestApiData("")
             }
         }
