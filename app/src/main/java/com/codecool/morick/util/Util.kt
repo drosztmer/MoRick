@@ -3,10 +3,22 @@ package com.codecool.morick.util
 import android.app.Activity
 import android.content.Context
 import android.view.inputmethod.InputMethodManager
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 
 class Util {
 
     companion object {
+
+        fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner, observer: Observer<T>) {
+            observe(lifecycleOwner, object : Observer<T> {
+                override fun onChanged(t: T?) {
+                    observer.onChanged(t)
+                    removeObserver(this)
+                }
+            })
+        }
 
         fun getIdQueryFromUrls(urls: List<String>): String {
             val ids = mutableListOf<String>()

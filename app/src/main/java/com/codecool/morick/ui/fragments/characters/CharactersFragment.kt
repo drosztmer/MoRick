@@ -5,10 +5,12 @@ import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.codecool.morick.R
 import com.codecool.morick.adapters.CharactersAdapter
 import com.codecool.morick.databinding.FragmentCharactersBinding
@@ -19,7 +21,6 @@ import com.codecool.morick.util.Util
 import com.codecool.morick.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
@@ -32,6 +33,11 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
 
     private lateinit var networkListener: NetworkListener
 
+    private var loading = false
+    private var pageNumber = 1
+    private var name = ""
+    private var maxPageNumber = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
@@ -42,6 +48,7 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCharactersBinding.inflate(inflater, container, false)
+        pageNumber = 1
         setupRecyclerView()
 
         binding.lifecycleOwner = this
@@ -60,18 +67,38 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
                 Log.d("NetworkListener", status.toString())
                 mainViewModel.networkStatus = status
                 mainViewModel.showNetworkStatus()
-                requestApiData()
+                pageNumber = 1
+                requestApiData("")
             }
         }
+
+        observeNextPageResponse()
 
         return binding.root
     }
 
     private fun setupRecyclerView() {
+        val mLayoutManager = LinearLayoutManager(requireContext())
         binding.charactersRecyclerView.apply {
             adapter = mAdapter
-            layoutManager = LinearLayoutManager(requireContext())
+            layoutManager = mLayoutManager
         }
+        binding.charactersRecyclerView.addOnScrollListener(object :
+            RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (dy > 0) {
+                    val visibleItemCount = mLayoutManager.childCount
+                    val pastVisibleItem = mLayoutManager.findFirstVisibleItemPosition()
+                    val total = mLayoutManager.itemCount
+                    if (!loading && pageNumber < maxPageNumber) {
+                        if ((visibleItemCount + pastVisibleItem) >= total && pastVisibleItem >= 0) {
+                            requestNextPage(name)
+                        }
+                    }
+                }
+            }
+        })
         showShimmerEffect()
     }
 
@@ -89,7 +116,9 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
 
     override fun onQueryTextSubmit(query: String?): Boolean {
         if (query != null) {
-            searchApiData(query)
+            pageNumber = 1
+            name = query
+            requestApiData(name)
         }
         Util.hideKeyboard(requireActivity())
         return true
@@ -99,14 +128,17 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
         return true
     }
 
-    private fun requestApiData() {
-        mainViewModel.getCharacters()
+    private fun requestApiData(name: String) {
+        mainViewModel.getCharacters(name, pageNumber)
         mainViewModel.rickAndMortyResponse.observe(viewLifecycleOwner, { response ->
             when (response) {
                 is NetworkResult.Success -> {
                     hideShimmerEffect()
                     val characterResponse = response.data
-                    characterResponse?.let { mAdapter.setData(it.results) }
+                    characterResponse?.let {
+                        maxPageNumber = it.info.pages
+                        mAdapter.setData(it.results)
+                    }
                 }
                 is NetworkResult.Error -> {
                     hideShimmerEffect()
@@ -123,26 +155,33 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
         })
     }
 
-    private fun searchApiData(name: String) {
-        showShimmerEffect()
-        mainViewModel.searchCharacters(name)
-        mainViewModel.searchedRickAndMortyResponse.observe(viewLifecycleOwner, { response ->
+    private fun requestNextPage(name: String) {
+        loading = true
+        binding.progressBar.isVisible = true
+        pageNumber += 1
+        mainViewModel.getNextPage(name, pageNumber)
+    }
+
+    private fun observeNextPageResponse() {
+        mainViewModel.nextPageResponse.observe(viewLifecycleOwner, { response ->
             when (response) {
                 is NetworkResult.Success -> {
-                    hideShimmerEffect()
+                    binding.progressBar.isVisible = false
                     val characterResponse = response.data
-                    characterResponse?.let { mAdapter.setData(it.results) }
+                    characterResponse?.let { mAdapter.addToList(it.results) }
+                    loading = false
                 }
                 is NetworkResult.Error -> {
-                    hideShimmerEffect()
+                    binding.progressBar.isVisible = false
                     Toast.makeText(
                         requireContext(),
                         response.message.toString(),
                         Toast.LENGTH_SHORT
                     ).show()
+                    loading = false
                 }
                 is NetworkResult.Loading -> {
-                    showShimmerEffect()
+                    binding.progressBar.isVisible = true
                 }
             }
         })
