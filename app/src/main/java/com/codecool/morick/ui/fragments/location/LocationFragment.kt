@@ -104,7 +104,7 @@ class LocationFragment : Fragment() {
         titles.add("Characters")
 
         val pagerAdapter = PagerAdapter(
-            resultBundle, fragments, requireActivity()
+            resultBundle, fragments, childFragmentManager, viewLifecycleOwner.lifecycle
         )
 
         binding.viewpager2.apply {
