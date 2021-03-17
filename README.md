@@ -1,6 +1,6 @@
 # MoRick - Rick and Morty Android Pet Project
 ### Single Activity Android app to list characters, show details page, locations page with info and characters
-### In development: Add / remove favourite characters, save, share
+#### In development: Add / remove favourite characters, save, share
 
 #### The app uses:
  - Kotlin
