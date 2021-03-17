@@ -6,15 +6,15 @@
  - Kotlin
  - MVVM
  - DI with Dagger - Hilt
-##### - Navigation
-##### - Safe Args
-##### - Retrofit
-##### - Coroutines 
-##### - Room database
-##### - Coil Image loading library
-##### - ViewPager 2
-##### - Data binding
-##### - View binding
-##### - DataStore
+ - Navigation
+ - Safe Args
+ - Retrofit
+ - Coroutines 
+ - Room database
+ - Coil Image loading library
+ - ViewPager 2
+ - Data binding
+ - View binding
+ - DataStore
 
-# Preview of 
+##### Preview of NetworkListener and list:
