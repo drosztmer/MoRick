@@ -11,6 +11,7 @@ class Constants {
         const val ALIVE = "Alive"
         const val DEAD = "Dead"
         const val CHARACTERS = "characters"
+        const val FAVORITES = "favorites"
         const val LOCATION = "location"
 
         const val LOCATION_BUNDLE = "locationBundle"

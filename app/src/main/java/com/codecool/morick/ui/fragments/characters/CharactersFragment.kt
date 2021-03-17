@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,7 +29,7 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
     private var _binding: FragmentCharactersBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var mainViewModel: MainViewModel
+    private val mainViewModel: MainViewModel by viewModels()
     private val mAdapter by lazy { CharactersAdapter(CHARACTERS) }
 
     private lateinit var networkListener: NetworkListener
@@ -37,11 +38,6 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
     private var pageNumber = 1
     private var name = ""
     private var maxPageNumber = 0
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

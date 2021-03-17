@@ -1,13 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.fragments.favoritecharacters.FavoriteCharactersFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
+    <data>
+        <variable
+            name="mainViewModel"
+            type="com.codecool.morick.viewmodels.MainViewModel" />
+        <variable
+            name="adapter"
+            type="com.codecool.morick.adapters.CharactersAdapter" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Favorites fragment" />
+        android:background="@color/blue_light"
+        tools:context=".ui.fragments.favoritecharacters.FavoriteCharactersFragment">
 
-</FrameLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/favorite_characters_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="@dimen/margin_medium"/>
+
+        <ImageView
+            android:id="@+id/no_data_imageview"
+            android:layout_width="@dimen/image_size"
+            android:layout_height="@dimen/image_size"
+            android:alpha="0.5"
+            android:src="@drawable/ic_favorites"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.37" />
+
+        <TextView
+            android:id="@+id/no_data_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:alpha="0.5"
+            android:text="@string/no_favorite_characters"
+            android:textSize="@dimen/error_text_size"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/no_data_imageview"
+            app:layout_constraintStart_toStartOf="@+id/no_data_imageview"
+            app:layout_constraintTop_toBottomOf="@+id/no_data_imageview" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
