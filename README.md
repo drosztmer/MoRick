@@ -3,9 +3,9 @@
 ### In development: Add / remove favourite characters, save, share
 
 #### The app uses:
-##### - Kotlin
-##### - MVVM
-##### - DI with Dagger - Hilt
+ - Kotlin
+ - MVVM
+ - DI with Dagger - Hilt
 ##### - Navigation
 ##### - Safe Args
 ##### - Retrofit
@@ -16,3 +16,5 @@
 ##### - Data binding
 ##### - View binding
 ##### - DataStore
+
+# Preview of 
