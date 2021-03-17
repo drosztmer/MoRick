@@ -19,3 +19,9 @@
 
 ##### Preview of NetworkListener and list:
 ![](1_network_listener_and_list.gif)
+
+##### Preview of search and endless scrolling:
+![](2_search_and_endless_scroll.gif)
+
+##### Preview of details and locations fragment with viewpager2:
+![](3_details_and_locations.gif)
