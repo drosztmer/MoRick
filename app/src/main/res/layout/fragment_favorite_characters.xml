@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.fragments.favoritecharacters.FavoriteCharactersFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
+    <data>
+        <variable
+            name="mainViewModel"
+            type="com.codecool.morick.viewmodels.MainViewModel" />
+        <variable
+            name="adapter"
+            type="com.codecool.morick.adapters.CharactersAdapter" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Favorites fragment" />
+        tools:context=".ui.fragments.favoritecharacters.FavoriteCharactersFragment">
 
-</FrameLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Favorites fragment" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
