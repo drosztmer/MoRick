@@ -9,8 +9,10 @@ import coil.load
 import com.codecool.morick.R
 import com.codecool.morick.models.RickAndMortyCharacter
 import com.codecool.morick.ui.fragments.characters.CharactersFragmentDirections
+import com.codecool.morick.ui.fragments.favoritecharacters.FavoriteCharactersFragmentDirections
 import com.codecool.morick.ui.fragments.location.LocationFragmentDirections
 import com.codecool.morick.util.Constants.Companion.CHARACTERS
+import com.codecool.morick.util.Constants.Companion.FAVORITES
 import com.codecool.morick.util.Constants.Companion.LOCATION
 
 class ItemCharacterBinding {
@@ -40,6 +42,13 @@ class ItemCharacterBinding {
                 } else if (from == LOCATION) {
                     try {
                         val action = LocationFragmentDirections.actionLocationFragmentToDetailsFragment(character)
+                        itemCharacterLayout.findNavController().navigate(action)
+                    } catch (e: Exception) {
+                        Log.d("onCharacterClickListener", e.toString())
+                    }
+                } else if (from == FAVORITES) {
+                    try {
+                        val action = FavoriteCharactersFragmentDirections.actionFavoriteCharactersFragmentToDetailsFragment(character)
                         itemCharacterLayout.findNavController().navigate(action)
                     } catch (e: Exception) {
                         Log.d("onCharacterClickListener", e.toString())
