@@ -22,4 +22,7 @@
     <string name="no">No</string>
     <string name="alert_dialog_title">Delete everything?</string>
     <string name="alert_dialog_message">Are you sure you want to delete all favorite characters?</string>
+    <string name="character_added_to_favorites">Character added to favorites</string>
+    <string name="character_removed_from_favorites">Character removed from favorites</string>
+    <string name="okay">Okay</string>
 </resources>
