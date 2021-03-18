@@ -27,6 +27,7 @@ class FavoriteCharactersBinding {
                     if (!dataCheck) {
                         val rickAndMortyCharacters: List<RickAndMortyCharacter>? = favoriteCharacterEntityList?.map { it.character }
                         rickAndMortyCharacters?.let { adapter?.setData(it) }
+                        favoriteCharacterEntityList?.let { adapter?.setEntities(it) }
                     }
                 } else -> view.isVisible = favoriteCharacterEntityList.isNullOrEmpty()
             }
