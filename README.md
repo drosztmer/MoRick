@@ -1,6 +1,6 @@
 # MoRick - Rick and Morty Android Pet Project
-### Single Activity Android app to list characters, show details page, locations page with info and characters
-#### In development: Add / remove favourite characters, save, share
+### Single Activity Android app to list characters, show details page and locations page with info and characters, add/remove favorites
+#### In development: save, share
 
 #### The app uses:
  - Kotlin
@@ -12,7 +12,7 @@
  - Coroutines 
  - Room database
  - Coil Image loading library
- - ViewPager 2
+ - ViewPager2
  - Data binding
  - View binding
  - DataStore
@@ -23,5 +23,11 @@
 ##### Preview of search and endless scrolling:
 ![](2_search_and_endless_scroll.gif)
 
-##### Preview of details and locations fragment with viewpager2:
+##### Preview of details and locations fragment with ViewPager2:
 ![](3_details_and_locations.gif)
+
+#### Preview of adding/removing favorites on details screen
+![](4_add_remove_favorites_on_details_screen.gif)
+
+#### Preview of remove/undo/delete all favorites on favorites screen
+![](5_remove_undo_delete_all.gif)
