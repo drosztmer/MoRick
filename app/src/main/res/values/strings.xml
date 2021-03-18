@@ -18,7 +18,7 @@
     <string name="no_favorite_characters">No Favorite Characters</string>
     <string name="delete_all">Delete All</string>
     <string name="yes">Yes</string>
-    <string name="successfully_deleted_everything">Successfully deleted everything!</string>
+    <string name="successfully_deleted_everything">Successfully deleted everything</string>
     <string name="no">No</string>
     <string name="alert_dialog_title">Delete everything?</string>
     <string name="alert_dialog_message">Are you sure you want to delete all favorite characters?</string>

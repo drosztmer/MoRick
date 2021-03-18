@@ -54,7 +54,7 @@ class FavoriteCharactersFragment : Fragment() {
     private fun confirmDeleteAll() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton(getString(R.string.yes)) { _, _ ->
-            // mainViewModel.deleteAllFavorites()
+            mainViewModel.deleteAllFavoriteCharacters()
             showSnackBar()
         }
         builder.setNegativeButton(getString(R.string.no)) { _, _ -> }
