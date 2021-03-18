@@ -17,6 +17,8 @@ class Constants {
         const val LOCATION_INFO_TITLE = "Info"
         const val LOCATION_CHARACTERS_TITLE = "Characters"
 
+        const val FAVORITE_CHARACTERS_TABLE = "characters_table"
+
         const val LOCATION_BUNDLE = "locationBundle"
 
         const val PREFERENCES_NAME = "rick_and_morty_preferences"
