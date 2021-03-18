@@ -1,6 +1,7 @@
 package com.codecool.morick.data.database
 
 import androidx.room.*
+import com.codecool.morick.data.database.entities.FavoriteCharacterEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

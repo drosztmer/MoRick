@@ -5,7 +5,7 @@ import com.codecool.morick.models.RickAndMortyCharacter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-class CharactersTypeConverter {
+class FavoriteCharactersTypeConverter {
 
     var gson = Gson()
 

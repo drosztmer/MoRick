@@ -1,4 +1,4 @@
-package com.codecool.morick.data.database
+package com.codecool.morick.data.database.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
