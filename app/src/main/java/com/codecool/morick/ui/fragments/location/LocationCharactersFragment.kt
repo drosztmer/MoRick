@@ -32,8 +32,6 @@ class LocationCharactersFragment : Fragment() {
     private lateinit var mainViewModel: MainViewModel
     private val mAdapter by lazy { CharactersAdapter(LOCATION) }
 
-    private lateinit var networkListener: NetworkListener
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)

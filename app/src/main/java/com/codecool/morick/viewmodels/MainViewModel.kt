@@ -5,12 +5,10 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.widget.Toast
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.codecool.morick.data.DataStoreRepository
 import com.codecool.morick.data.Repository
+import com.codecool.morick.data.database.entities.FavoriteCharacterEntity
 import com.codecool.morick.models.RickAndMortyCharacter
 import com.codecool.morick.models.RickAndMortyLocation
 import com.codecool.morick.models.RickAndMortyResponse
@@ -29,6 +27,27 @@ class MainViewModel @Inject constructor(
     application: Application
 ) : AndroidViewModel(application) {
 
+    // Room
+
+    val readFavoriteCharacters: LiveData<List<FavoriteCharacterEntity>> =
+        repository.local.readFavoriteCharacters().asLiveData()
+
+    fun insertFavoriteCharacter(favoriteCharacterEntity: FavoriteCharacterEntity) =
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.local.insertFavoriteCharacter(favoriteCharacterEntity)
+        }
+
+    fun deleteFavoriteCharacter(favoriteCharacterEntity: FavoriteCharacterEntity) =
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.local.deleteFavoriteCharacter(favoriteCharacterEntity)
+        }
+
+    fun deleteAllFavoriteCharacters() = viewModelScope.launch(Dispatchers.IO) {
+        repository.local.deleteAllFavoriteCharacters()
+    }
+
+    // Retrofit
+
     val rickAndMortyResponse: MutableLiveData<NetworkResult<RickAndMortyResponse>> =
         MutableLiveData()
     val nextPageResponse: MutableLiveData<NetworkResult<RickAndMortyResponse>> =
@@ -37,7 +56,8 @@ class MainViewModel @Inject constructor(
 
     val isLocationLoaded: MutableLiveData<Boolean> = MutableLiveData(false)
 
-    val multipleCharacters: MutableLiveData<NetworkResult<List<RickAndMortyCharacter>>> = MutableLiveData()
+    val multipleCharacters: MutableLiveData<NetworkResult<List<RickAndMortyCharacter>>> =
+        MutableLiveData()
 
     val readBackOnline = dataStoreRepository.readBackOnline.asLiveData()
 
@@ -53,7 +73,6 @@ class MainViewModel @Inject constructor(
     }
 
 
-
     fun getLocationById(locationId: String) = viewModelScope.launch {
         getLocationByIdSafeCall(locationId)
     }
@@ -66,7 +85,7 @@ class MainViewModel @Inject constructor(
         dataStoreRepository.saveBackOnline(backOnline)
     }
 
-    private suspend fun getCharactersSafeCall(name: String, pageNumber : Int) {
+    private suspend fun getCharactersSafeCall(name: String, pageNumber: Int) {
         rickAndMortyResponse.value = NetworkResult.Loading()
         if (hasInternetConnection()) {
             try {
