@@ -1,5 +1,5 @@
 # MoRick - Rick and Morty Android Pet Project
-### Single Activity Android app to list characters, show details page and locations page with info and characters, add/remove favorites
+### Single Activity Android app to list characters, show details screen and locations screen with info and characters, add/remove favorites
 #### In development: save, share
 
 #### The app uses:
