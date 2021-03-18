@@ -14,6 +14,8 @@ import androidx.navigation.fragment.navArgs
 import com.codecool.morick.adapters.PagerAdapter
 import com.codecool.morick.databinding.FragmentLocationBinding
 import com.codecool.morick.util.Constants.Companion.LOCATION_BUNDLE
+import com.codecool.morick.util.Constants.Companion.LOCATION_CHARACTERS_TITLE
+import com.codecool.morick.util.Constants.Companion.LOCATION_INFO_TITLE
 import com.codecool.morick.util.NetworkListener
 import com.codecool.morick.util.NetworkResult
 import com.codecool.morick.viewmodels.MainViewModel
@@ -100,8 +102,8 @@ class LocationFragment : Fragment() {
         fragments.add(LocationCharactersFragment())
 
         val titles = ArrayList<String>()
-        titles.add("Info")
-        titles.add("Characters")
+        titles.add(LOCATION_INFO_TITLE)
+        titles.add(LOCATION_CHARACTERS_TITLE)
 
         val pagerAdapter = PagerAdapter(
             resultBundle, fragments, childFragmentManager, viewLifecycleOwner.lifecycle

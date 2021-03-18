@@ -10,7 +10,8 @@ import com.codecool.morick.R
 import com.codecool.morick.models.RickAndMortyCharacter
 import com.codecool.morick.ui.fragments.characters.CharactersFragmentDirections
 import com.codecool.morick.ui.fragments.location.LocationFragmentDirections
-import java.lang.Exception
+import com.codecool.morick.util.Constants.Companion.CHARACTERS
+import com.codecool.morick.util.Constants.Companion.LOCATION
 
 class ItemCharacterBinding {
 
@@ -29,14 +30,14 @@ class ItemCharacterBinding {
         @JvmStatic
         fun onCharacterClickListener(itemCharacterLayout: ConstraintLayout, character: RickAndMortyCharacter, from: String) {
             itemCharacterLayout.setOnClickListener {
-                if (from == "characters") {
+                if (from == CHARACTERS) {
                     try {
                         val action = CharactersFragmentDirections.actionCharactersFragmentToDetailsFragment(character)
                         itemCharacterLayout.findNavController().navigate(action)
                     } catch (e: Exception) {
                         Log.d("onCharacterClickListener", e.toString())
                     }
-                } else if (from == "location") {
+                } else if (from == LOCATION) {
                     try {
                         val action = LocationFragmentDirections.actionLocationFragmentToDetailsFragment(character)
                         itemCharacterLayout.findNavController().navigate(action)
