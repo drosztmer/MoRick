@@ -17,7 +17,7 @@ class Constants {
         const val LOCATION_INFO_TITLE = "Info"
         const val LOCATION_CHARACTERS_TITLE = "Characters"
 
-        const val FAVORITE_CHARACTERS_TABLE = "characters_table"
+        const val FAVORITE_CHARACTERS_TABLE = "favorite_characters_table"
 
         const val LOCATION_BUNDLE = "locationBundle"
 
