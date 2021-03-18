@@ -102,7 +102,7 @@ class FavoriteCharactersFragment : Fragment() {
         val deleteMessage = getString(R.string.deleted)
         val snackBar = Snackbar.make(
             view,
-            deleteMessage + "'${deletedCharacterEntity.character.name}'",
+            deleteMessage + deletedCharacterEntity.character.name,
             Snackbar.LENGTH_LONG
         )
         snackBar.setAction(getString(R.string.undo)) {

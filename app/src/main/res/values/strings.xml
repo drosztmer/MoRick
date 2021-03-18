@@ -25,6 +25,6 @@
     <string name="character_added_to_favorites">Character added to favorites</string>
     <string name="character_removed_from_favorites">Character removed from favorites</string>
     <string name="okay">Okay</string>
-    <string name="deleted">\"Deleted: \"</string>
+    <string name="deleted">"Deleted: "</string>
     <string name="undo">Undo</string>
 </resources>
