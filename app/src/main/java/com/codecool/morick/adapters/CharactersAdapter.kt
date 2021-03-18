@@ -4,13 +4,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.codecool.morick.data.database.entities.FavoriteCharacterEntity
 import com.codecool.morick.databinding.ItemCharacterBinding
 import com.codecool.morick.models.RickAndMortyCharacter
 import com.codecool.morick.util.CharactersDiffUtil
 
 class CharactersAdapter(val from: String): RecyclerView.Adapter<CharactersAdapter.MyViewHolder>() {
 
-    private var characters: MutableList<RickAndMortyCharacter> = mutableListOf()
+    var characters: MutableList<RickAndMortyCharacter> = mutableListOf()
+    var characterEntities = listOf<FavoriteCharacterEntity>()
 
     class MyViewHolder(private val binding: ItemCharacterBinding): RecyclerView.ViewHolder(binding.root) {
 
@@ -43,6 +45,10 @@ class CharactersAdapter(val from: String): RecyclerView.Adapter<CharactersAdapte
         val newMutableList = newList.toMutableList()
         characters = newMutableList
         diffUtilResult.dispatchUpdatesTo(this)
+    }
+
+    fun setEntities(newEntities: List<FavoriteCharacterEntity>) {
+        characterEntities = newEntities
     }
 
     fun addToList(newList: List<RickAndMortyCharacter>) {

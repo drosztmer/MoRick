@@ -1,26 +1,35 @@
 package com.codecool.morick.ui.fragments.details
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.codecool.morick.R
+import com.codecool.morick.data.database.entities.FavoriteCharacterEntity
 import com.codecool.morick.databinding.FragmentDetailsBinding
 import com.codecool.morick.util.Constants.Companion.UNKNOWN_LOWERCASE
 import com.codecool.morick.util.Util
 import com.codecool.morick.viewmodels.MainViewModel
+import com.google.android.material.snackbar.Snackbar
+import java.lang.Exception
 
 class DetailsFragment : Fragment() {
 
     private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding!!
 
+    private val args by navArgs<DetailsFragmentArgs>()
     private lateinit var mainViewModel: MainViewModel
 
-    private val args by navArgs<DetailsFragmentArgs>()
+    private var characterSavedToFavorites = false
+    private var savedToFavoritesCharacterId = 0
+
+    private lateinit var menuItem: MenuItem
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +37,7 @@ class DetailsFragment : Fragment() {
         mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
         mainViewModel.isLocationLoaded.value = false
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,14 +49,16 @@ class DetailsFragment : Fragment() {
         if (character.location.name != UNKNOWN_LOWERCASE) {
             binding.locationCardview.setOnClickListener {
                 val locationId = Util.getIdFromUrl(character.location.url)
-                val action = DetailsFragmentDirections.actionDetailsFragmentToLocationFragment(locationId)
+                val action =
+                    DetailsFragmentDirections.actionDetailsFragmentToLocationFragment(locationId)
                 findNavController().navigate(action)
             }
         }
         if (character.origin.name != UNKNOWN_LOWERCASE) {
             binding.originCardview.setOnClickListener {
                 val locationId = Util.getIdFromUrl(character.origin.url)
-                val action = DetailsFragmentDirections.actionDetailsFragmentToLocationFragment(locationId)
+                val action =
+                    DetailsFragmentDirections.actionDetailsFragmentToLocationFragment(locationId)
                 findNavController().navigate(action)
             }
         }
@@ -56,25 +68,66 @@ class DetailsFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.details_menu, menu)
+        menuItem = menu.findItem(R.id.details_favorite)
+        checkSavedToFavoritesCharacters(menuItem)
+    }
+
+    private fun checkSavedToFavoritesCharacters(menuItem: MenuItem) {
+        mainViewModel.readFavoriteCharacters.observe(viewLifecycleOwner, { favoriteCharacterEntity ->
+            try {
+                for (savedToFavoriteCharacter in favoriteCharacterEntity) {
+                    if (savedToFavoriteCharacter.character.id == args.character.id) {
+                        changeMenuItemColor(menuItem, R.color.yellow_dark)
+                        savedToFavoritesCharacterId = savedToFavoriteCharacter.id
+                        characterSavedToFavorites = true
+                    }
+                }
+            } catch (e: Exception) {
+                Log.d("DetailsFragment", e.message.toString())
+            }
+        })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.details_favorite -> {
-                Toast.makeText(requireContext(), "Favorite!", Toast.LENGTH_SHORT).show()
-            }
-            R.id.details_share -> {
-                Toast.makeText(requireContext(), "Share!", Toast.LENGTH_SHORT).show()
-            }
-            R.id.details_save -> {
-                Toast.makeText(requireContext(), "Save!", Toast.LENGTH_SHORT).show()
-            }
+        if (item.itemId == R.id.details_favorite && !characterSavedToFavorites) {
+            addToFavorites(item)
+        } else if (item.itemId == R.id.details_favorite && characterSavedToFavorites) {
+            removeFromFavorites(item)
+        } else if (item.itemId == R.id.details_share) {
+            Toast.makeText(requireContext(), "Share!", Toast.LENGTH_SHORT).show()
+        } else if (item.itemId == R.id.details_save) {
+            Toast.makeText(requireContext(), "Save!", Toast.LENGTH_SHORT).show()
         }
         return super.onOptionsItemSelected(item)
     }
 
+    private fun addToFavorites(item: MenuItem) {
+        val favoriteCharacterEntity = FavoriteCharacterEntity(0, args.character)
+        mainViewModel.insertFavoriteCharacter(favoriteCharacterEntity)
+        changeMenuItemColor(item, R.color.yellow_dark)
+        showSnackBar(getString(R.string.character_added_to_favorites))
+        characterSavedToFavorites = true
+    }
+
+    private fun removeFromFavorites(item: MenuItem) {
+        val favoriteCharacterEntity = FavoriteCharacterEntity(savedToFavoritesCharacterId, args.character)
+        mainViewModel.deleteFavoriteCharacter(favoriteCharacterEntity)
+        changeMenuItemColor(item, R.color.white)
+        showSnackBar(getString(R.string.character_removed_from_favorites))
+        characterSavedToFavorites = false
+    }
+
+    private fun showSnackBar(message: String) {
+        Snackbar.make(binding.detailsLayout, message, Snackbar.LENGTH_SHORT).setAction(getString(R.string.okay)) {}.show()
+    }
+
+    private fun changeMenuItemColor(item: MenuItem, color: Int) {
+        item.icon.setTint(ContextCompat.getColor(requireContext(), color))
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
+        changeMenuItemColor(menuItem, R.color.white)
         _binding = null
     }
 
