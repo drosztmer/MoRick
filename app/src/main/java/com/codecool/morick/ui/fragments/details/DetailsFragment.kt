@@ -1,5 +1,6 @@
 package com.codecool.morick.ui.fragments.details
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -12,6 +13,7 @@ import androidx.navigation.fragment.navArgs
 import com.codecool.morick.R
 import com.codecool.morick.data.database.entities.FavoriteCharacterEntity
 import com.codecool.morick.databinding.FragmentDetailsBinding
+import com.codecool.morick.models.RickAndMortyCharacter
 import com.codecool.morick.util.Constants.Companion.UNKNOWN_LOWERCASE
 import com.codecool.morick.util.Util
 import com.codecool.morick.viewmodels.MainViewModel
@@ -30,6 +32,7 @@ class DetailsFragment : Fragment() {
     private var savedToFavoritesCharacterId = 0
 
     private lateinit var menuItem: MenuItem
+    private lateinit var character: RickAndMortyCharacter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +47,7 @@ class DetailsFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         _binding = FragmentDetailsBinding.inflate(inflater, container, false)
-        val character = args.character
+        character = args.character
         binding.character = character
         if (character.location.name != UNKNOWN_LOWERCASE) {
             binding.locationCardview.setOnClickListener {
@@ -99,7 +102,12 @@ class DetailsFragment : Fragment() {
         } else if (item.itemId == R.id.details_favorite && characterSavedToFavorites) {
             removeFromFavorites(item)
         } else if (item.itemId == R.id.details_share) {
-            Toast.makeText(requireContext(), "Share!", Toast.LENGTH_SHORT).show()
+            val shareIntent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, Util.createStringMessageFromCharacter(requireContext(), character))
+                type = "text/plain"
+            }
+            startActivity(shareIntent)
         } else if (item.itemId == R.id.details_save) {
             Toast.makeText(requireContext(), "Save!", Toast.LENGTH_SHORT).show()
         }
