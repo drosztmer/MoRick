@@ -81,6 +81,10 @@ class DetailsFragment : Fragment() {
                         changeMenuItemColor(menuItem, R.color.yellow_dark)
                         savedToFavoritesCharacterId = savedToFavoriteCharacter.id
                         characterSavedToFavorites = true
+                    } else {
+                        changeMenuItemColor(menuItem, R.color.white)
+                        savedToFavoritesCharacterId = 0
+                        characterSavedToFavorites = false
                     }
                 }
             } catch (e: Exception) {
