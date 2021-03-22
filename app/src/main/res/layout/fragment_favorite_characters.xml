@@ -9,7 +9,7 @@
             type="com.codecool.morick.viewmodels.MainViewModel" />
         <variable
             name="adapter"
-            type="com.codecool.morick.adapters.CharactersAdapter" />
+            type="com.codecool.morick.adapters.FavoriteCharactersAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

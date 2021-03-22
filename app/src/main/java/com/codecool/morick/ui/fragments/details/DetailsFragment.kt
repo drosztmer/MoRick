@@ -76,6 +76,7 @@ class DetailsFragment : Fragment() {
         mainViewModel.readFavoriteCharacters.observe(viewLifecycleOwner, { favoriteCharacterEntity ->
             try {
                 for (savedToFavoriteCharacter in favoriteCharacterEntity) {
+                    Log.d("FAVORITES: ", savedToFavoriteCharacter.character.name)
                     if (savedToFavoriteCharacter.character.id == args.character.id) {
                         changeMenuItemColor(menuItem, R.color.yellow_dark)
                         savedToFavoritesCharacterId = savedToFavoriteCharacter.id
