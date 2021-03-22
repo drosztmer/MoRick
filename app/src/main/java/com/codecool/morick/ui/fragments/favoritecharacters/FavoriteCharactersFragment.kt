@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.codecool.morick.R
 import com.codecool.morick.adapters.CharactersAdapter
+import com.codecool.morick.adapters.FavoriteCharactersAdapter
 import com.codecool.morick.data.database.entities.FavoriteCharacterEntity
 import com.codecool.morick.databinding.FragmentFavoriteCharactersBinding
 import com.codecool.morick.util.Constants.Companion.FAVORITES
@@ -25,7 +26,7 @@ class FavoriteCharactersFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val mainViewModel: MainViewModel by viewModels()
-    private val mAdapter by lazy { CharactersAdapter(FAVORITES) }
+    private val mAdapter by lazy { FavoriteCharactersAdapter(FAVORITES) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

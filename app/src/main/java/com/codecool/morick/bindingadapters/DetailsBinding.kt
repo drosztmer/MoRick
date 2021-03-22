@@ -1,6 +1,5 @@
 package com.codecool.morick.bindingadapters
 
-import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
