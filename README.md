@@ -1,6 +1,5 @@
 # MoRick - Rick and Morty Android Pet Project
-### Single Activity Android app to list characters, show details screen and locations screen with info and characters, add/remove favorites, share
-#### In development: save image
+### Single Activity Android app to list characters, show details screen and locations screen with info and characters, add/remove favorites, share details, save image to device
 
 #### The app uses:
  - Kotlin
@@ -31,3 +30,6 @@
 
 #### Preview of remove/undo/delete all favorites on favorites screen
 ![](5_remove_undo_delete_all.gif)
+
+#### Preview of saving image
+![](6_save_image.gif)
