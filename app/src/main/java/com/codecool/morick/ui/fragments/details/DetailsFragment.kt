@@ -7,7 +7,7 @@ import android.view.*
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.codecool.morick.R
@@ -18,15 +18,16 @@ import com.codecool.morick.util.Constants.Companion.UNKNOWN_LOWERCASE
 import com.codecool.morick.util.Util
 import com.codecool.morick.viewmodels.MainViewModel
 import com.google.android.material.snackbar.Snackbar
-import java.lang.Exception
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DetailsFragment : Fragment() {
 
     private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding!!
 
     private val args by navArgs<DetailsFragmentArgs>()
-    private lateinit var mainViewModel: MainViewModel
+    private val mainViewModel: MainViewModel by viewModels()
 
     private var characterSavedToFavorites = false
     private var savedToFavoritesCharacterId = 0
@@ -37,7 +38,6 @@ class DetailsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
         mainViewModel.isLocationLoaded.value = false
     }
 
@@ -84,10 +84,6 @@ class DetailsFragment : Fragment() {
                         changeMenuItemColor(menuItem, R.color.yellow_dark)
                         savedToFavoritesCharacterId = savedToFavoriteCharacter.id
                         characterSavedToFavorites = true
-                    } else {
-                        changeMenuItemColor(menuItem, R.color.white)
-                        savedToFavoritesCharacterId = 0
-                        characterSavedToFavorites = false
                     }
                 }
             } catch (e: Exception) {
