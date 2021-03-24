@@ -16,8 +16,8 @@
  - View binding
  - DataStore
 
-##### Preview of NetworkListener and list:
-![](1_network_listener_and_list.gif)
+##### Preview of Splash, NetworkListener and list:
+![](1_splash_network_listener_and_list.gif)
 
 ##### Preview of search and endless scrolling:
 ![](2_search_and_endless_scroll.gif)
