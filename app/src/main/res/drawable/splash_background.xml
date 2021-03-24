@@ -3,6 +3,6 @@
 
     <item android:drawable="@android:color/white"/>
 
-    <item android:drawable="@drawable/morick_background" android:gravity="center"/>
+    <item android:drawable="@drawable/morick_background" android:scaleType="fitCenter"/>
 
 </layer-list>
