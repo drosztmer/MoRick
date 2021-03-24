@@ -10,7 +10,7 @@
         android:id="@+id/placeholder_image"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/mediumGray"
+        android:background="@color/yellow_medium"
         app:layout_constraintWidth_percent=".5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -19,7 +19,7 @@
     <View
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:background="@color/mediumGray"
+        android:background="@color/yellow_medium"
         android:layout_margin="@dimen/margin_big"
         app:layout_constraintStart_toEndOf="@id/placeholder_image"
         app:layout_constraintEnd_toEndOf="parent"
