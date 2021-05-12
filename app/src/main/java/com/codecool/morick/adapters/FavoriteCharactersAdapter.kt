@@ -19,10 +19,9 @@ class FavoriteCharactersAdapter(val from: String): RecyclerView.Adapter<Favorite
             binding.from = from
             binding.executePendingBindings()
         }
-
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteCharactersAdapter.MyViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemCharacterBinding.inflate(inflater, parent, false)
         return MyViewHolder(binding)
@@ -43,5 +42,4 @@ class FavoriteCharactersAdapter(val from: String): RecyclerView.Adapter<Favorite
         characterEntities = newList
         diffUtilResult.dispatchUpdatesTo(this)
     }
-
 }
