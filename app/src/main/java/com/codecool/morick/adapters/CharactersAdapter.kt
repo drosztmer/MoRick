@@ -12,7 +12,6 @@ import com.codecool.morick.util.CharactersDiffUtil
 class CharactersAdapter(val from: String): RecyclerView.Adapter<CharactersAdapter.MyViewHolder>() {
 
     var characters: MutableList<RickAndMortyCharacter> = mutableListOf()
-    var characterEntities = listOf<FavoriteCharacterEntity>()
 
     class MyViewHolder(private val binding: ItemCharacterBinding): RecyclerView.ViewHolder(binding.root) {
 
@@ -21,7 +20,6 @@ class CharactersAdapter(val from: String): RecyclerView.Adapter<CharactersAdapte
             binding.from = from
             binding.executePendingBindings()
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
