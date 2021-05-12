@@ -31,6 +31,5 @@ class FavoriteCharactersBinding {
                 } else -> view.isVisible = favoriteCharacterEntityList.isNullOrEmpty()
             }
         }
-
     }
 }

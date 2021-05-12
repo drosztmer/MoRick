@@ -21,5 +21,4 @@ class PagerAdapter(
         fragments[position].arguments = resultBundle
         return fragments[position]
     }
-
 }

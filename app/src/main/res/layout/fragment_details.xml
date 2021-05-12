@@ -58,7 +58,7 @@
                     android:layout_margin="@dimen/margin_big"
                     android:gravity="center"
                     loadText="@{character.name}"
-                    android:maxLines="2"
+                    android:maxLines="3"
                     android:ellipsize="end"
                     app:layout_constraintEnd_toEndOf="@id/detail_image"
                     app:layout_constraintStart_toStartOf="@id/detail_image"
