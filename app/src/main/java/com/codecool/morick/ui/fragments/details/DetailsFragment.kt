@@ -1,6 +1,7 @@
 package com.codecool.morick.ui.fragments.details
 
 import android.Manifest
+import android.app.AlertDialog
 import android.content.ContentResolver
 import android.content.ContentValues
 import android.content.Intent
@@ -127,11 +128,76 @@ class DetailsFragment : Fragment() {
             startActivity(shareIntent)
         } else if (item.itemId == R.id.details_save) {
             val bitmap: Bitmap = (binding.detailImage.drawable as BitmapDrawable).bitmap
-
-            saveImage(bitmap)
-//            Toast.makeText(requireContext(), "Save!", Toast.LENGTH_SHORT).show()
+            checkPermission(bitmap)
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun confirmSave(bitmap: Bitmap) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setPositiveButton(getString(R.string.yes)) { _, _ ->
+            saveImageToStorage(bitmap)
+        }
+        builder.setNegativeButton(getString(R.string.no)) { _, _ -> }
+        builder.setTitle(getString(R.string.save_image))
+        builder.setMessage(getString(R.string.image_download_confirm))
+        builder.create().show()
+    }
+
+    private fun checkPermission(bitmap: Bitmap) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                ActivityCompat.requestPermissions(
+                    requireActivity(),
+                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                    100
+                )
+            } else {
+                confirmSave(bitmap)
+            }
+        } else {
+            confirmSave(bitmap)
+        }
+    }
+
+    private fun saveImageToStorage(bitmap: Bitmap) {
+        val fos: OutputStream?
+        val name = System.currentTimeMillis().toString()
+        try {
+            fos = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                val resolver: ContentResolver = requireContext().contentResolver
+                val contentValues = ContentValues()
+                contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, name + ".jpg")
+                contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpg")
+                contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
+                val imageUri: Uri? =
+                    resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+                resolver.openOutputStream(imageUri!!)
+            } else {
+                val imagesDir =
+                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+                        .toString()
+                val image = File(imagesDir, name + ".jpg")
+                FileOutputStream(image)
+            }
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos)
+            fos?.close()
+            showSnackBar()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun showSnackBar() {
+        Snackbar.make(
+            binding.root,
+            getString(R.string.image_saved_successfully),
+            Snackbar.LENGTH_SHORT
+        ).setAction("Okay") {}.show()
     }
 
     private fun addToFavorites(item: MenuItem) {
@@ -160,59 +226,6 @@ class DetailsFragment : Fragment() {
 
     private fun changeMenuItemColor(item: MenuItem, color: Int) {
         item.icon.setTint(ContextCompat.getColor(requireContext(), color))
-    }
-
-    private fun saveImage(bitmap: Bitmap) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            if (ContextCompat.checkSelfPermission(
-                    requireContext(),
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                ActivityCompat.requestPermissions(
-                    requireActivity(),
-                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                    100
-                )
-            } else {
-                saveImageToStorage(bitmap)
-            }
-        } else {
-            saveImageToStorage(bitmap)
-        }
-    }
-
-    private fun saveImageToStorage(bitmap: Bitmap) {
-        val fos: OutputStream?
-        val name = System.currentTimeMillis().toString()
-        try {
-            fos = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                val resolver: ContentResolver = requireContext().contentResolver
-                val contentValues = ContentValues()
-                contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, name + ".jpg")
-                contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpg")
-                contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
-                val imageUri: Uri? =
-                    resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
-                resolver.openOutputStream(imageUri!!)
-            } else {
-                val imagesDir =
-                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-                        .toString()
-                val image = File(imagesDir, name + ".jpg")
-                FileOutputStream(image)
-            }
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos)
-            fos?.close()
-            Toast.makeText(
-                requireContext(),
-                "Image saved successfully",
-                Toast.LENGTH_SHORT
-            ).show()
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-
     }
 
     override fun onRequestPermissionsResult(

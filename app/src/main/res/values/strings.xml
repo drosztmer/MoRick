@@ -18,9 +18,9 @@
     <string name="no_favorite_characters">No Favorite Characters</string>
     <string name="delete_all">Delete All</string>
     <string name="yes">Yes</string>
-    <string name="successfully_deleted_everything">Successfully deleted everything</string>
+    <string name="successfully_deleted_everything">Successfully deleted all favorites</string>
     <string name="no">No</string>
-    <string name="alert_dialog_title">Delete everything?</string>
+    <string name="alert_dialog_title">Delete all favorites?</string>
     <string name="alert_dialog_message">Are you sure you want to delete all favorite characters?</string>
     <string name="character_added_to_favorites">Character added to favorites</string>
     <string name="character_removed_from_favorites">Character removed from favorites</string>
@@ -29,4 +29,7 @@
     <string name="undo">Undo</string>
     <string name="name">Name</string>
     <string name="image_url">Image URL</string>
+    <string name="image_saved_successfully">Image saved successfully</string>
+    <string name="save_image">Download image</string>
+    <string name="image_download_confirm">Do you want to download this image?</string>
 </resources>
