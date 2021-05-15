@@ -140,7 +140,7 @@ class DetailsFragment : Fragment() {
         }
         builder.setNegativeButton(getString(R.string.no)) { _, _ -> }
         builder.setTitle(getString(R.string.save_image))
-        builder.setMessage(getString(R.string.image_download_confirm))
+        builder.setMessage(getString(R.string.image_save_confirm))
         builder.create().show()
     }
 
